@@ -14,6 +14,8 @@ app.set('view engine', 'ejs');
 
 app.use(router);
 
+
+
 // 404 middleware
 app.use((req,res,next) => {
     try {
