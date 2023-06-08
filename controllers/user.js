@@ -1,67 +1,97 @@
 const {User} = require('../db/models');
 const bcryp = require('bcrypt');
-const passport = require('../utils/passport');
+const jwt = require('jsonwebtoken');
+const {JWT_SECRET_KEY} = process.env;
 
 module.exports = {
-    registerPage: (req, res) => {
-        return res.render('auth/register', {errors: {name: '', email: '', phone: '', password: ''}});
-    },
-
-    register: async (req, res) => {
+    register: async (req, res, next) => {
         try {
             const {name, email, phone, password} = req.body;
 
-            // validasi
-            const error = {errors: {}};
-            if (!name) {
-                error.errors.name = 'name is required';
-            }
-            if (!email) {
-                error.errors.email = 'email is required';
-            }
-            if (!phone) {
-                error.errors.phone = 'phone is required';
-            }
-            if (!password) {
-                error.errors.password = 'password is required';
-            }
-            if (!name || !email || !phone || !password) {
-                return res.render('auth/register', error);
-            }
-
             const exist = await User.findOne({where: {email}});
             if (exist) {
-                error.errors.email = 'email is already used!';
-                return res.render('auth/register', error);
+                return res.status(400).json({
+                    status: false,
+                    message: 'email already used!',
+                    data: null
+                });
             }
 
             const hashPassword = await bcryp.hash(password, 10);
 
-            await User.create({
-                name, email, password: hashPassword
+            const user = await User.create({
+                name, email, phone, password: hashPassword
             });
 
-            return res.redirect('/login');
-        } catch (error) {
-            throw error;
+            return res.status(200).json({
+                status: true,
+                message: 'user registered!',
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    phone: user.phone,
+                    email: user.email
+                }
+            });
+        } catch (err) {
+            next(err);
         }
     },
 
-    loginPage: (req, res) => {
-        return res.render('auth/login', {errors: {email: '', password: ''}});
+    login: async (req, res, next) => {
+        try {
+            const {email, password} = req.body;
+
+            const user = await User.findOne({where: {email}});
+            if (!user) {
+                return res.status(404).json({
+                    status: false,
+                    message: 'email or password is not correct!',
+                    data: null
+                });
+            }
+
+            const passwordCorrect = await bcryp.compare(password, user.password);
+            if (!passwordCorrect) {
+                return res.status(404).json({
+                    status: false,
+                    message: 'email or password is not correct!',
+                    data: null
+                });
+            }
+
+            const payload = {
+                id: user.id,
+                name: user.name,
+                phone: user.phone,
+                email: user.email
+            };
+
+            const token = await jwt.sign(payload, JWT_SECRET_KEY);
+            return res.status(200).json({
+                status: true,
+                message: 'success!',
+                data: {
+                    token: token
+                }
+            });
+
+        } catch (err) {
+            next(err);
+        }
     },
 
-    login: passport.authenticate('local', {
-        successRedirect: '/whoami',
-        failureRedirect: '/login',
-        failureFlash: true
-    }),
-
-    whoami: async (req, res) => {
+    whoami: async (req, res, next) => {
         try {
-            return res.render('auth/whoami', {user: req.user});
-        } catch (error) {
-            throw error;
+            return res.status(200).json({
+                status: true,
+                message: 'success!',
+                data: {
+                    user: req.user
+                }
+            });
+        } catch (err) {
+            next(err);
         }
     }
 };
