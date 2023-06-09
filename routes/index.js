@@ -1,11 +1,32 @@
 const express = require('express');
+const user = require('./user');
 const router = express.Router();
 
+router.use(user);
+
 router.get('/', (req,res) => {
-    return res.status(200).json({
-        status: true,
-        message: "Welcome to final project binar academy"
-    })
+    return res.render("home.ejs");
 });
+
+router.get('/welcome', (req,res) => {
+    return res.render("welcome.ejs");
+})
+
+router.get('/login', (req,res) => {
+    return res.render("login.ejs");
+})
+
+router.get('/loging', (req,res) => {
+    return res.render("google.ejs");
+})
+
+router.get('/forgot', (req,res) => {
+    return res.render("forgot.ejs");
+})
+
+router.get('/reset', (req,res) => {
+    return res.render("reset.ejs");
+})
+
 
 module.exports = router;
