@@ -209,7 +209,7 @@ module.exports = {
         const variabel = Math.floor(Math.random() * 10000);
         data.otp = variabel;
         token = await jwt.sign(data, JWT_SECRET_KEY);
-        const html = await nodemailer.getHtml('activation.ejs', {user: {name: data.name}, otp:variabel});
+        const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: data.name}, otp:variabel});
         nodemailer.sendMail(data.email, 'Activation Account', html);
         res.cookie("authorization", token, {
             httpOnly: true
