@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const flight = require('../controller/flight.js')
+const flight = require('../controllers/flight.js')
 
 router.get('/', flight.show)
 router.post('/', flight.create)
