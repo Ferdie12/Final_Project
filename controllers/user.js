@@ -10,9 +10,7 @@ module.exports = {
     register: async (req, res) => {
         try {
             const {name, email, password, phone } = req.body;
-
-
-            const exist = await prisma.user.findFirst({where: {email}});
+            const exist = await prisma.user.findUnique({where: {email}});
             if (exist) {
                 return res.status(400).json({
                     status: false,
@@ -21,14 +19,12 @@ module.exports = {
             }
 
             const hashPassword = await bcryp.hash(password, 10);
-            const phoneconvers= +phone;
-
             const user = await prisma.user.create({
                 data: {
                     name,
                     email,
                     password: hashPassword,
-                    phone: phoneconvers,
+                    phone: +phone,
                     user_type: 'basic',
                     role: 'buyer',
                     activation: false
@@ -52,7 +48,10 @@ module.exports = {
                 httpOnly: true
             })
 
-            return res.redirect('/welcome')
+            return res.status(201).json({
+                status: true,
+                message: "you must to activation your accout"
+            })
 
         } catch (error) {
             throw error;
@@ -63,7 +62,7 @@ module.exports = {
         try {
             const {email, password} = req.body;
 
-            const user = await prisma.user.findFirst({where: {email}});
+            const user = await prisma.user.findUnique({where: {email}});
             if (!user) {
                 return res.status(400).json({
                     status: false,
@@ -128,7 +127,7 @@ module.exports = {
         const {data} = await oauth2.getUserData();
         console.log(data);
 
-        let user = await prisma.user.findFirst({where: {email: data.email}});
+        let user = await prisma.user.findUnique({where: {email: data.email}});
         if(user){
             return res.status(400).json({
                 status: false,
@@ -193,6 +192,8 @@ module.exports = {
                     message: 'activation failed'
                 });
             }
+            
+            res.clearCookie("authorization");
 
             return res.status(200).json({
                 status: true,
@@ -204,43 +205,55 @@ module.exports = {
     },
 
     sendOtp: async (req,res) => {
-        let token = req.cookies.authorization;
-        const data = await jwt.verify(token, JWT_SECRET_KEY);
-        const variabel = Math.floor(Math.random() * 10000);
-        data.otp = variabel;
-        token = await jwt.sign(data, JWT_SECRET_KEY);
-        const html = await nodemailer.getHtml('activation.ejs', {user: {name: data.name}, otp:variabel});
-        nodemailer.sendMail(data.email, 'Activation Account', html);
-        res.cookie("authorization", token, {
-            httpOnly: true
-        });
+        try {
+            let token = req.cookies.authorization;
+            const data = await jwt.verify(token, JWT_SECRET_KEY);
+            const variabel = Math.floor(Math.random() * 10000);
+
+            data.otp = variabel;
+            token = await jwt.sign(data, JWT_SECRET_KEY);
+            const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: data.name}, otp:variabel});
+            nodemailer.sendMail(data.email, 'Activation Account', html);
+            res.cookie("authorization", token, {
+                httpOnly: true
+            });
         
-        return res.redirect("/welcome");
+            return res.status(200).json({
+                status: true,
+                message: "we send new otp to activation your email"
+            });
+        } catch (error) {
+            throw error
+        }
         
     },
 
     forgotPassword: async (req, res) =>{
-        const {email} = req.body;
+        try {
+            const {email} = req.body;
 
-        const user = await prisma.user.findFirst({where: {email}});
-        if (user) {
-            const payload = {
-                id: user.id
-            };
+            const user = await prisma.user.findUnique({where: {email}});
+            if (user) {
+                const payload = {
+                    id: user.id
+                };
 
-            const url = `${req.protocol}://${req.get('host')}/reset`;
-            const token = await jwt.sign(payload, JWT_SECRET_KEY);
-            const html = await nodemailer.getHtml('email/resetpassword.ejs', {name: user.name, url});
-            nodemailer.sendMail(user.email, 'Reset passwor request', html);
+                const url = `${req.protocol}://${req.get('host')}/reset`;
+                const token = await jwt.sign(payload, JWT_SECRET_KEY);
+                const html = await nodemailer.getHtml('email/resetpassword.ejs', {name: user.name, url});
+                nodemailer.sendMail(user.email, 'Reset password request', html);
 
-            res.cookie("authorization", token);
+                res.cookie("authorization", token);
+            }
+
+            return res.status(200).json({
+                status: true,
+                message: 'we will send a email if the email is registered!',
+                data: null
+            });
+        } catch (error) {
+            throw error
         }
-
-        return res.status(200).json({
-            status: true,
-            message: 'we will send a email if the email is registered!',
-            data: null
-        });
     },
 
     resetPassword: async (req,res) => {
@@ -254,14 +267,18 @@ module.exports = {
                 return res.status(400).json({message: "password tidak sesuai dengan confirm password"});
             }
 
+            const hashPassword = await bcryp.hash(new_password, 10);
             const data = await jwt.verify(token, JWT_SECRET_KEY);
 
-            const updated = await prisma.user.update({data: {password: new_password}, where: {id: data.id}});
+            const updated = await prisma.user.update({data: {password: hashPassword}, where: {id: data.id}});
             if (!updated) {
                 return res.status(400).json({message: "gagal"});
             }
 
-            return res.send('success');
+            return res.status(200).json({
+                status: true,
+                message: 'reset password success'
+            });
         } catch (err) {
             throw err;
         }
