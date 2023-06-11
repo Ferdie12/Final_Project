@@ -1,21 +1,36 @@
 require('dotenv').config();
 const express = require('express');
+const cookie = require('cookie-parser');
 const app = express();
 const morgan = require('morgan');
 const router = require('./routes');
 const cors = require('cors');
 
-const {
-    HTTP_PORT = 3000
-} = process.env;
 
 app.use(cors());
+app.use(cookie());
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use(morgan('dev'));
+app.set('view engine', 'ejs');
 
 app.use(router);
 
-// 500
+
+
+// 404 middleware
+app.use((req,res,next) => {
+    try {
+        return res.status(404).json({
+            status: false,
+            message: "salah link uyy"
+        });
+    } catch (error) {
+        next(err);
+    }
+})
+
+// 500 middleware
 app.use((err, req, res, next) => {
     console.log(err);
     return res.status(500).json({
@@ -25,4 +40,4 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(HTTP_PORT, () => console.log('running on port', HTTP_PORT));
+module.exports = app;
