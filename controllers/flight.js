@@ -6,7 +6,9 @@ module.exports = {
       try {
           const flight = await prisma.flights.findMany({
               include: {
-                component: true,
+                from_airport: true,
+                airline: true,
+                to_airport: true
               },
             })
         return res.status(200).json({
@@ -118,7 +120,13 @@ module.exports = {
                 id: id,
               },
               data: {
-                component: {
+                airline: {
+                  deleteMany: {},
+                },
+                from_airport: {
+                  deleteMany: {},
+                },
+                to_airport: {
                   deleteMany: {},
                 },
               },
