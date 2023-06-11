@@ -29,7 +29,7 @@ module.exports = {
           });
         }
   
-        const productData = await prisma.flights.create({
+        const flightData = await prisma.flights.create({
           data: {
             date,
             departure_time,
