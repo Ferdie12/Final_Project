@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-    show: async (req, res, next) => {
+    show: async (res, next) => {
       try {
           const flight = await prisma.flights.findMany({
               include: {
