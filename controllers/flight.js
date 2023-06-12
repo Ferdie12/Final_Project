@@ -26,7 +26,7 @@ module.exports = {
   
         if (!airline_id || !from_airport_id || !to_airport_id || !date || !departure_time || !arrival_time || !estimation) {
           return res.status(404).json({
-            message: "data tidak valid",
+            message: "data tidak lengkap",
             data: null,
           });
         }
