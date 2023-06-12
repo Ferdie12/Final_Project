@@ -22,7 +22,7 @@ module.exports = {
     getById : async (req,res) => {
         try {
             const notification_id = req.params.id_notification
-            const notifications = await prisma.notification.findFirst({
+            const notifications = await prisma.notification.findUnique({
                 where: {id: notification_id},
                 orderBy:{
                     id: "asc"
