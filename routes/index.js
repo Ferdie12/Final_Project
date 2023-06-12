@@ -1,6 +1,10 @@
 const express = require('express');
 const user = require('./user');
 const router = express.Router();
+const flightRoutes = require('./flight.js')
+module.exports = {
+    flightRoutes
+}
 
 router.use(user);
 
