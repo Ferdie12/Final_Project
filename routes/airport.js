@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const cont = require("../controllers/airport");
+const airport = require("../controllers/airport");
 
-router.get("/search/:search", cont.getPort);
-router.get("/indonesia", cont.getIndoAirport);
-router.get("/all", cont.getAllAirport);
-
+router.get('/', airport.show)
+router.post('/', airport.create)
+router.put('/:id', airport.update)
+router.delete('/:id', airport.destroy)
 module.exports = router;
