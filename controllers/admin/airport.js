@@ -3,7 +3,7 @@ module.exports = {
 
     getAll : async (req,res) => {
         try {
-            const airplanes = await prisma.airplane.findMany({
+            const airports = await prisma.airport.findMany({
                 orderBy: {
                   id: 'asc'
                 },
@@ -11,8 +11,8 @@ module.exports = {
     
             return res.status(200).json({
                 status : true,
-                message: "Get All airplanes succes",
-                data : airplanes
+                message: "Get All airports succes",
+                data : airports
             })
         } catch (err) {
             throw err;
@@ -21,25 +21,25 @@ module.exports = {
     
     getById : async (req,res) => {
         try {
-            const airplane_id = req.params.id_airplane
-            const airplanes = await prisma.airplane.findUnique({
-                where: {id: airplane_id},
+            const airport_id = req.params.id_airport
+            const airports = await prisma.airport.findUnique({
+                where: {id: airport_id},
                 orderBy:{
                     id: "asc"
                 }
               });
     
-            if(!airplanes){
+            if(!airports){
                 return res.status(404).json({
                     status : false,
-                    message: `cannot get airplane with airplane id not found`
+                    message: `cannot get airport with airport id not found`
                 });
             }
     
             return res.status(200).json({
                 status : true,
-                message: "Get By Id airplanes succes",
-                data : airplanes
+                message: "Get By Id airports succes",
+                data : airports
             });
     
         } catch (err) {
@@ -49,37 +49,29 @@ module.exports = {
     
     create : async (req,res) => {
         try {
-            const {airline_id, model, baggage, cabin_baggage} = req.body;
+            const {name, city, country, airport_code} = req.body;
     
-            if(!airline_id || !model || !baggage, cabin_baggage){
+            if(!name || !city || !country, airport_code){
                 return res.status(400).json({
                     status: false,
                     message: "data is required!"
                 })
             }
 
-            const airline = await prisma.airline.findUnique({where : {id: airline_id}});
-            if(!airline){
-                return res.status(400).json({
-                    status: false,
-                    message: "cannot find airline_id in database"
-                })
-            }
-    
-            const exist = await prisma.airplane.findFirst({where: {airline_id, model, baggage, cabin_baggage}});
+            const exist = await prisma.airport.findFirst({where: {name, city, country, airport_code}});
             if(exist){
                 return res.status(400).json({
                     status: false,
-                    message: "airplane is already created!"
+                    message: "airport is already created!"
                 })
             }
     
-            const airplanes = await prisma.airplane.create({data: req.body});
+            const airports = await prisma.airport.create({data: req.body});
             
             return res.status(201).json({
                 status : true,
-                message: "created airplane succes",
-                data : airplanes
+                message: "created airport succes",
+                data : airports
             })
         } catch (err) {
             throw err;
@@ -88,14 +80,14 @@ module.exports = {
     
     update : async (req,res) => {
         try {
-            const airplane_id = req.params.id_airplane
+            const airport_id = req.params.id_airport
         
-            const update = await prisma.airplane.update({data:req.body, where: {id: airplane_id}});
+            const update = await prisma.airport.update({data:req.body, where: {id: airport_id}});
             
             if(!update){
                 return res.status(404).json({
                     status : false,
-                    message: `cannot update airplane with airplane id not found`
+                    message: `cannot update airport with airport id not found`
                 });
             }
             return res.status(200).json({
@@ -109,14 +101,14 @@ module.exports = {
     
     destroy : async (req,res) => {
         try {
-            const airplane_id = req.params.id_airplane
+            const airport_id = req.params.id_airport
         
-            const deleted = await prisma.airplane.delete({where: {id: airplane_id}});
+            const deleted = await prisma.airport.delete({where: {id: airport_id}});
             
             if(!deleted){
                 return res.status(404).json({
                     status : false,
-                    message: `cannot delete airplane with airplane id not found`,
+                    message: `cannot delete airport with airport id not found`,
                 });
             }
             return res.status(200).json({

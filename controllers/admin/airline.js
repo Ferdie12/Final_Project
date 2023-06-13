@@ -1,4 +1,4 @@
-const prisma = require('../prisma/config');
+const prisma = require('../../prisma/config');
 module.exports = {
 
     getAll : async (req,res) => {

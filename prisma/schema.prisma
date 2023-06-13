@@ -135,7 +135,7 @@ model Passengger {
 model Notification {
   id Int @id @default(autoincrement())
   user_id Int
-  time DateTime @db.Date
+  time DateTime @db.Date @default(now())
   header String
   deskripsi String
   isread Boolean
