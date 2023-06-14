@@ -2,8 +2,18 @@ const express = require('express');
 const user = require('./user');
 const router = express.Router();
 const flightRoutes = require('./flight.js')
+const airlineRoutes = require('./airline.js')
+const airplaneRoutes = require('./airplane.js')
+const airportRoutes = require('./airport.js')
+const notificationRoutes = require('./notification.js')
+const priceRoutes = require('./price.js')
 module.exports = {
-    flightRoutes
+    flightRoutes,
+    airlineRoutes,
+    airplaneRoutes,
+    airportRoutes,
+    notificationRoutes,
+    priceRoutes
 }
 
 router.use(user);
