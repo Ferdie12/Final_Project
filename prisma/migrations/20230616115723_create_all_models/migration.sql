@@ -6,7 +6,7 @@ CREATE TABLE "users" (
     "password" TEXT,
     "user_type" TEXT NOT NULL,
     "avatar" TEXT,
-    "phone" BIGINT,
+    "phone" TEXT,
     "role" TEXT NOT NULL,
     "activation" BOOLEAN NOT NULL,
 
@@ -40,7 +40,7 @@ CREATE TABLE "airplane" (
     "airline_id" INTEGER NOT NULL,
     "model" TEXT NOT NULL,
     "baggage" INTEGER NOT NULL,
-    "cabin_baggege" INTEGER NOT NULL,
+    "cabin_baggage" INTEGER NOT NULL,
 
     CONSTRAINT "airplane_pkey" PRIMARY KEY ("id")
 );
@@ -58,13 +58,13 @@ CREATE TABLE "price" (
 -- CreateTable
 CREATE TABLE "flight" (
     "id" SERIAL NOT NULL,
-    "airline_id" INTEGER NOT NULL,
+    "airplane_id" INTEGER NOT NULL,
     "from_airport_id" INTEGER NOT NULL,
     "to_airport_id" INTEGER NOT NULL,
     "date" DATE NOT NULL,
-    "departure_time" TIME(4) NOT NULL,
-    "arrival_time" TIME(4) NOT NULL,
-    "estimation" TIME(4) NOT NULL,
+    "departure_time" DATE NOT NULL,
+    "arrival_time" TIMESTAMP(3) NOT NULL,
+    "estimation" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "flight_pkey" PRIMARY KEY ("id")
 );
@@ -112,7 +112,7 @@ CREATE TABLE "passenggers" (
 CREATE TABLE "notification" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
-    "time" DATE NOT NULL,
+    "time" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "header" TEXT NOT NULL,
     "deskripsi" TEXT NOT NULL,
     "isread" BOOLEAN NOT NULL,
@@ -130,7 +130,7 @@ ALTER TABLE "airplane" ADD CONSTRAINT "airplane_airline_id_fkey" FOREIGN KEY ("a
 ALTER TABLE "price" ADD CONSTRAINT "price_flight_id_fkey" FOREIGN KEY ("flight_id") REFERENCES "flight"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "flight" ADD CONSTRAINT "flight_airline_id_fkey" FOREIGN KEY ("airline_id") REFERENCES "airline"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "flight" ADD CONSTRAINT "flight_airplane_id_fkey" FOREIGN KEY ("airplane_id") REFERENCES "airplane"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "flight" ADD CONSTRAINT "flight_from_airport_id_fkey" FOREIGN KEY ("from_airport_id") REFERENCES "airport"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

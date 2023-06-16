@@ -24,7 +24,7 @@ module.exports = {
                     name,
                     email,
                     password: hashPassword,
-                    phone: +phone,
+                    phone,
                     user_type: 'basic',
                     role: 'buyer',
                     activation: false

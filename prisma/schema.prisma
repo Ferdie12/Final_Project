@@ -17,7 +17,7 @@ model User {
   password String?
   user_type String
   avatar String?
-  phone BigInt?
+  phone String?
   role String
   activation Boolean
   notif Notification[]
@@ -44,7 +44,6 @@ model Airline{
   airline_code String
   logo String
   airplane Airplane[]
-  flight Flight[]
 
   @@map("airline")
 }
@@ -54,8 +53,9 @@ model Airplane{
  airline_id Int 
  model String
  baggage Int
- cabin_baggege Int
+ cabin_baggage Int
  airline Airline @relation(fields: [airline_id], references: [id])
+ flight Flight[]
 
  @@map("airplane")
 }
@@ -73,14 +73,14 @@ model Price {
 
 model Flight{
   id Int @id @default(autoincrement())
-  airline_id Int
+  airplane_id Int
   from_airport_id Int
   to_airport_id Int
   date DateTime @db.Date
-  departure_time DateTime @db.Time(4)
-  arrival_time DateTime @db.Time(4)
-  estimation DateTime @db.Time(4)
-  airline Airline @relation(fields: [airline_id], references: [id])
+  departure_time DateTime @db.Date
+  arrival_time DateTime
+  estimation DateTime
+  airplane Airplane @relation(fields: [airplane_id], references: [id])
   from Airport @relation("from_airport", fields: [from_airport_id], references: [id])
   to Airport @relation("to_airport", fields: [to_airport_id], references: [id])
   orders Order[]
