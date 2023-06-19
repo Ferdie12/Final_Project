@@ -4,6 +4,6 @@ Content-Type: application/json
 {
     "departure_airport": "jakarta",
     "arrival_airport": "makassar",
-    "date": "2023-06-01",
+    "date": "2023-06-18",
     "seat_type": "economy"
 }
