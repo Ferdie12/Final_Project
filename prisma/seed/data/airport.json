@@ -1,368 +1,368 @@
 [
-    {
-      "name": "APT Pranoto Airport",
-      "iata_code": "AAP",
-      "city": "Samarinda",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Abdul Rachman Saleh",
-      "iata_code": "MLG",
-      "city": "Malang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Achmad Yani",
-      "iata_code": "SRG",
-      "city": "Semarang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Adi Soemarmo",
-      "iata_code": "SOC",
-      "city": "Solo",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Adi Sutjipto",
-      "iata_code": "JOG",
-      "city": "Yogyakarta",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Betoambari",
-      "iata_code": "BUW",
-      "city": "Bau-Bau, Buton",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Binaka",
-      "iata_code": "GNS",
-      "city": "Nias/Gunung Sitoli",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Changi Intl",
-      "iata_code": "SIN",
-      "city": "Singapore",
-      "country": "Singapore"
-    },
-    {
-      "name": "Depati Amir",
-      "iata_code": "PGK",
-      "city": "Bangka / Pangkal Pinang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Domine Eduard Osok",
-      "iata_code": "SOQ",
-      "city": "Sorong",
-      "country": "Indonesia"
-    },
-    {
-      "name": "El Tari",
-      "iata_code": "KOE",
-      "city": "Kupang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Fatmawati Soekarno",
-      "iata_code": "BKS",
-      "city": "Bengkulu",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Frans Kaisiepo",
-      "iata_code": "BIK",
-      "city": "Biak",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Frans Seda/Wai Oti",
-      "iata_code": "MOF",
-      "city": "Maumere",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Gusti Sjamsir Alam",
-      "iata_code": "KBU",
-      "city": "Kotabaru",
-      "country": "Indonesia"
-    },
-    {
-      "name": "H Hasan Aroeboesman",
-      "iata_code": "ENE",
-      "city": "Ende",
-      "country": "Indonesia"
-    },
-    {
-      "name": "H. Asan Airport",
-      "iata_code": "SMQ",
-      "city": "Sampit",
-      "country": "Indonesia"
-    },
-    {
-      "name": "H.A.S Hanandjoeddin Airport",
-      "iata_code": "TJQ",
-      "city": "Belitung / Tanjung Pandan",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Halim Perdanakusuma International Airport",
-      "iata_code": "HLP",
-      "city": "Jakarta",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Haluoleo",
-      "iata_code": "KDI",
-      "city": "Kendari",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Hang Nadim",
-      "iata_code": "BTH",
-      "city": "Batam",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Hasanuddin",
-      "iata_code": "UPG",
-      "city": "Makassar",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Husein Sastranegara",
-      "iata_code": "BDO",
-      "city": "Bandung",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Iskandar",
-      "iata_code": "PKN",
-      "city": "Pangkalan Bun",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Jalaluddin",
-      "iata_code": "GTO",
-      "city": "Gorontalo",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Juanda International Airport",
-      "iata_code": "SUB",
-      "city": "Surabaya",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Juwata International Airport",
-      "iata_code": "TRK",
-      "city": "Tarakan",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Kalimarau",
-      "iata_code": "BEJ",
-      "city": "Berau",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Komodo",
-      "iata_code": "LBJ",
-      "city": "Labuan Bajo",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Kuala Lumpur International Airport",
-      "iata_code": "KUL",
-      "city": "Kuala Lumpur",
-      "country": "Malaysia"
-    },
-    {
-      "name": "Kualanamu International Airport",
-      "iata_code": "KNO",
-      "city": "Medan",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Lombok Praya International Airport",
-      "iata_code": "LOP",
-      "city": "Lombok",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Minangkabau Intl",
-      "iata_code": "PDG",
-      "city": "Padang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Mopah",
-      "iata_code": "MKQ",
-      "city": "Merauke",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Mozes Kilangin",
-      "iata_code": "TIM",
-      "city": "Timika",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Muhammad Salahuddin",
-      "iata_code": "BMU",
-      "city": "Bima",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Mutiara SIS Aljufri",
-      "iata_code": "PLW",
-      "city": "Palu",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Nabire",
-      "iata_code": "NBX",
-      "city": "Nabire",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Ngurah Rai International Airport",
-      "iata_code": "DPS",
-      "city": "Bali / Denpasar",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Pattimura Airport",
-      "iata_code": "AMQ",
-      "city": "Ambon",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Penang Intl",
-      "iata_code": "PEN",
-      "city": "Penang",
-      "country": "Malaysia"
-    },
-    {
-      "name": "Radin Inten II Airport",
-      "iata_code": "TKG",
-      "city": "Bandar Lampung",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Rahadi Usman",
-      "iata_code": "KTG",
-      "city": "Ketapang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Raja Haji Fisabilillah International Airport",
-      "iata_code": "TNJ",
-      "city": "Bintan / Tanjung Pinang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Rendani",
-      "iata_code": "MKW",
-      "city": "Manokwari",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sam Ratulangi",
-      "iata_code": "MDC",
-      "city": "Manado",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sentani",
-      "iata_code": "DJJ",
-      "city": "Jayapura",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sepinggan",
-      "iata_code": "BPN",
-      "city": "Balikpapan",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Soa",
-      "iata_code": "BJW",
-      "city": "Bajawa",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Soekarno Hatta International Airport",
-      "iata_code": "CGK",
-      "city": "Jakarta",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sultan Babullah",
-      "iata_code": "TTE",
-      "city": "Ternate",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sultan Iskandarmuda",
-      "iata_code": "BTJ",
-      "city": "Banda Aceh",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sultan Mahmud Badaruddin II",
-      "iata_code": "PLM",
-      "city": "Palembang",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sultan Syarif Kasim II",
-      "iata_code": "PKU",
-      "city": "Pekanbaru",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Sultan Thaha",
-      "iata_code": "DJB",
-      "city": "Jambi",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Supadio",
-      "iata_code": "PNK",
-      "city": "Pontianak",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Syamsudin Noor",
-      "iata_code": "BDJ",
-      "city": "Banjarmasin",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Tambolaka Airport",
-      "iata_code": "TMC",
-      "city": "Waikabubak",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Tjilik Riwut",
-      "iata_code": "PKY",
-      "city": "Palangkaraya",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Wamena",
-      "iata_code": "WMX",
-      "city": "Wamena",
-      "country": "Indonesia"
-    },
-    {
-      "name": "Yogyakarta International Airport",
-      "iata_code": "YIA",
-      "city": "Yogyakarta",
-      "country": "Indonesia"
-    }
-  ]
+  {
+    "airport_code": "AAP",
+    "name": "APT Pranoto Airport",
+    "city": "Samarinda",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "MLG",
+    "name": "Abdul Rachman Saleh",
+    "city": "Malang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SRG",
+    "name": "Achmad Yani",
+    "city": "Semarang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SOC",
+    "name": "Adi Soemarmo",
+    "city": "Solo",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "JOG",
+    "name": "Adi Sutjipto",
+    "city": "Yogyakarta",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BUW",
+    "name": "Betoambari",
+    "city": "Bau-Bau, Buton",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "GNS",
+    "name": "Binaka",
+    "city": "Nias/Gunung Sitoli",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SIN",
+    "name": "Changi Intl",
+    "city": "Singapore",
+    "country": "Singapore"
+  },
+  {
+    "airport_code": "PGK",
+    "name": "Depati Amir",
+    "city": "Bangka / Pangkal Pinang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SOQ",
+    "name": "Domine Eduard Osok",
+    "city": "Sorong",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "KOE",
+    "name": "El Tari",
+    "city": "Kupang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BKS",
+    "name": "Fatmawati Soekarno",
+    "city": "Bengkulu",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BIK",
+    "name": "Frans Kaisiepo",
+    "city": "Biak",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "MOF",
+    "name": "Frans Seda/Wai Oti",
+    "city": "Maumere",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "KBU",
+    "name": "Gusti Sjamsir Alam",
+    "city": "Kotabaru",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "ENE",
+    "name": "H Hasan Aroeboesman",
+    "city": "Ende",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SMQ",
+    "name": "H. Asan Airport",
+    "city": "Sampit",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TJQ",
+    "name": "H.A.S Hanandjoeddin Airport",
+    "city": "Belitung / Tanjung Pandan",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "HLP",
+    "name": "Halim Perdanakusuma International Airport",
+    "city": "Jakarta",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "KDI",
+    "name": "Haluoleo",
+    "city": "Kendari",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BTH",
+    "name": "Hang Nadim",
+    "city": "Batam",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "UPG",
+    "name": "Hasanuddin",
+    "city": "Makassar",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BDO",
+    "name": "Husein Sastranegara",
+    "city": "Bandung",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PKN",
+    "name": "Iskandar",
+    "city": "Pangkalan Bun",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "GTO",
+    "name": "Jalaluddin",
+    "city": "Gorontalo",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "SUB",
+    "name": "Juanda International Airport",
+    "city": "Surabaya",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TRK",
+    "name": "Juwata International Airport",
+    "city": "Tarakan",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BEJ",
+    "name": "Kalimarau",
+    "city": "Berau",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "LBJ",
+    "name": "Komodo",
+    "city": "Labuan Bajo",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "KUL",
+    "name": "Kuala Lumpur International Airport",
+    "city": "Kuala Lumpur",
+    "country": "Malaysia"
+  },
+  {
+    "airport_code": "KNO",
+    "name": "Kualanamu International Airport",
+    "city": "Medan",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "LOP",
+    "name": "Lombok Praya International Airport",
+    "city": "Lombok",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PDG",
+    "name": "Minangkabau Intl",
+    "city": "Padang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "MKQ",
+    "name": "Mopah",
+    "city": "Merauke",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TIM",
+    "name": "Mozes Kilangin",
+    "city": "Timika",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BMU",
+    "name": "Muhammad Salahuddin",
+    "city": "Bima",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PLW",
+    "name": "Mutiara SIS Aljufri",
+    "city": "Palu",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "NBX",
+    "name": "Nabire",
+    "city": "Nabire",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "DPS",
+    "name": "Ngurah Rai International Airport",
+    "city": "Bali / Denpasar",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "AMQ",
+    "name": "Pattimura Airport",
+    "city": "Ambon",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PEN",
+    "name": "Penang Intl",
+    "city": "Penang",
+    "country": "Malaysia"
+  },
+  {
+    "airport_code": "TKG",
+    "name": "Radin Inten II Airport",
+    "city": "Bandar Lampung",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "KTG",
+    "name": "Rahadi Usman",
+    "city": "Ketapang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TNJ",
+    "name": "Raja Haji Fisabilillah International Airport",
+    "city": "Bintan / Tanjung Pinang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "MKW",
+    "name": "Rendani",
+    "city": "Manokwari",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "MDC",
+    "name": "Sam Ratulangi",
+    "city": "Manado",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "DJJ",
+    "name": "Sentani",
+    "city": "Jayapura",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BPN",
+    "name": "Sepinggan",
+    "city": "Balikpapan",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BJW",
+    "name": "Soa",
+    "city": "Bajawa",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "CGK",
+    "name": "Soekarno Hatta International Airport",
+    "city": "Jakarta",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TTE",
+    "name": "Sultan Babullah",
+    "city": "Ternate",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BTJ",
+    "name": "Sultan Iskandarmuda",
+    "city": "Banda Aceh",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PLM",
+    "name": "Sultan Mahmud Badaruddin II",
+    "city": "Palembang",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PKU",
+    "name": "Sultan Syarif Kasim II",
+    "city": "Pekanbaru",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "DJB",
+    "name": "Sultan Thaha",
+    "city": "Jambi",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PNK",
+    "name": "Supadio",
+    "city": "Pontianak",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "BDJ",
+    "name": "Syamsudin Noor",
+    "city": "Banjarmasin",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "TMC",
+    "name": "Tambolaka Airport",
+    "city": "Waikabubak",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "PKY",
+    "name": "Tjilik Riwut",
+    "city": "Palangkaraya",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "WMX",
+    "name": "Wamena",
+    "city": "Wamena",
+    "country": "Indonesia"
+  },
+  {
+    "airport_code": "YIA",
+    "name": "Yogyakarta International Airport",
+    "city": "Yogyakarta",
+    "country": "Indonesia"
+  }
+]

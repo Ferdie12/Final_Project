@@ -23,6 +23,6 @@ module.exports = {
     
     currency: (number) => new Intl.NumberFormat("id", { style: "currency", currency: "IDR" }).format(number),
 
-    country: (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    city: (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }
 

@@ -6,4 +6,4 @@ async function main() {
     console.log(data);
 }
 
-main()
+module.exports = main;
