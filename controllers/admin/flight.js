@@ -18,21 +18,24 @@ module.exports = {
       try {
         const {sort_by = "departure_time", sort_type = "asc"} = req.query;
   
-        const {departure_airport, arrival_airport, date, seat_type} = req.body;
+        let {departure_airport, arrival_airport, date, seat_type} = req.body;
         if(!departure_airport || !arrival_airport || !date || !seat_type) {
           return res.status(400).json({
             status: false,
             message: "your not input value on filter",
             data: null
           });
-        }
+        };
+        
+        departure_airport = formatted.city(departure_airport);
+        arrival_airport = formatted.city(arrival_airport);
+        seat_type = seat_type.toUpperCase();
   
-        let sorting = [{[sort_by] : sort_type}]
+        let sorting = [{[sort_by] : sort_type}];
         if(sort_by == "price"){
           sort_by = "price"
-          sorting = [{price:{[sort_by]: sort_type}}]
-        }else if(sort_by == "estimation"){
-          sort_by = "estimation";
+        }else if(sort_by == "flight_duration"){
+          sort_by = "flight_duration";
         }
 
         
@@ -40,7 +43,7 @@ module.exports = {
         const departureAirport = await prisma.airport.findFirst({
           where: {city: departure_airport},
           select: {
-            id: true
+            airport_code: true
           }
         });
 
@@ -55,7 +58,7 @@ module.exports = {
         const arrivalAirport = await prisma.airport.findFirst({
           where: {city: arrival_airport},
           select: {
-            id: true
+            airport_code: true
           }
         });
 
@@ -67,64 +70,46 @@ module.exports = {
           });
         }
   
-        const seatClass = await prisma.price.findFirst({
-          where: {seat_type},
-          select: {
-            id: true
-          }
-        });
-  
-        if (!seatClass) {
-          return res.status(400).json({
-            status: false,
-            message: "seat class not found",
-            data: null
-          });			
-        }
-  
         const flights = await prisma.flight.findMany({
           where: {
-            from_airport_id: departureAirport.id,
-            to_airport_id: arrivalAirport.id,
-            date: date,
-            price: {
-              seat_type
+            flight_date: date,
+            class: seat_type,
+            from: {
+              city: departure_airport
+            },
+            to: {
+              city: arrival_airport
             }
           },
           include: {
-            airplane: {
-              include: {
-                airline: true
-              }
-            },
+            airplane: true,
+            airline: true,
             from: true,
-            to: true,
-            price: true
+            to: true
           },
           orderBy: sorting
         });
+
+        console.log(flights);
   
         const result = flights.map(flight => {
-          const date = formatted.date(flight.date);
-          const departure_time = formatted.time(flight.departure_time);
-          const arrival_time = formatted.time(flight.arrival_time);
-          const prices = formatted.currency(flight.price.price);
-          const duration = formatted.estimation(flight.estimation);
+          const prices = formatted.currency(flight.price);
+          const duration = formatted.estimation(flight.flight_duration);
   
           return {
             id: flight.id,
-            flight_number: flight.airplane.model.split(" ")[0],
-            airplane_model: flight.airplane.model.split(" ")[1],
+            flight_number: flight.airplane.model.split(" ")[1],
+            airplane_model: flight.airplane.model.split(" ")[0],
             info: {
               prices,
-              seat_type : flight.price.seat_type,
-              baggage: flight.airplane.baggage,
-              cabin_baggage: flight.airplane.cabin_baggage,
+              seat_type : flight.class,
+              baggage: flight.free_baggage,
+              cabin_baggage: flight.cabin_baggage,
             },
             airline:{
-              name: flight.airplane.airline.name,
-              code: flight.airplane.airline.airline_code,
-              logo: flight.airplane.airline.logo
+              name: flight.airline.name,
+              code: flight.airline.airline_code,
+              logo: flight.airline.logo
             },
             departure_airport: {
               name: flight.from.name,
@@ -138,9 +123,9 @@ module.exports = {
               country: flight.to.country,
               iata: flight.to.airport_code,
             },
-            date,
-            departure_time,
-            arrival_time,
+            date: flight.flight_date,
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
             duration,
           };
         });
@@ -148,10 +133,8 @@ module.exports = {
         return res.status(200).json({
           status: true,
           message: "success search flight",
-          data: {
-            item_count: flights.count,
-            flights: result
-          }
+          count: result.length,
+          data: result
         });
       } catch (error) {
         next(error);
