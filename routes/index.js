@@ -10,7 +10,7 @@ const notificationRoutes = require('./notification.js')
 const data = require('../prisma/seed/index');
 
 router.use(user);
-router.use("/flight", flightRoutes);
+router.use("/api", flightRoutes);
 router.use("/airline",airlineRoutes);
 router.use("/airplane", airplaneRoutes);
 router.use("/airport", airportRoutes);
