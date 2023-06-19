@@ -13,11 +13,16 @@ module.exports = {
                   }
                 ],
               });
+            
+            const result = airports.map(airport => ({
+                value: airport.city,
+                label: airport.city
+            }));
     
             return res.status(200).json({
                 status : true,
                 message: "Get All airports succes",
-                data : airports
+                data : result
             })
         } catch (err) {
             throw err;
