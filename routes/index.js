@@ -6,41 +6,20 @@ const airlineRoutes = require('./airline.js')
 const airplaneRoutes = require('./airplane.js')
 const airportRoutes = require('./airport.js')
 const notificationRoutes = require('./notification.js')
-const priceRoutes = require('./price.js')
-module.exports = {
-    flightRoutes,
-    airlineRoutes,
-    airplaneRoutes,
-    airportRoutes,
-    notificationRoutes,
-    priceRoutes
-}
 
 router.use(user);
+router.use(flightRoutes);
+router.use(airlineRoutes);
+router.use(airplaneRoutes);
+router.use(airportRoutes);
+router.use(notificationRoutes);
 
 router.get('/', (req,res) => {
-    return res.render("home.ejs");
+    return res.status(200).json({
+        status: true,
+        message: "welcome to api quick tix application in develop"
+    })
 });
-
-router.get('/welcome', (req,res) => {
-    return res.render("welcome.ejs");
-})
-
-router.get('/login', (req,res) => {
-    return res.render("login.ejs");
-})
-
-router.get('/loging', (req,res) => {
-    return res.render("google.ejs");
-})
-
-router.get('/forgot', (req,res) => {
-    return res.render("forgot.ejs");
-})
-
-router.get('/reset', (req,res) => {
-    return res.render("reset.ejs");
-})
 
 
 module.exports = router;

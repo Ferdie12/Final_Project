@@ -1,0 +1,9 @@
+POST  http://localhost:3000/api/flight
+Content-Type: application/json
+
+{
+    "departure_airport": "Malang",
+    "arrival_airport": "Semarang",
+    "date": "2023-06-15T00:00:00.000Z",
+    "seat_type": "business"
+}
