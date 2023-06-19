@@ -4,9 +4,14 @@ module.exports = {
     getAll : async (req,res) => {
         try {
             const airports = await prisma.airport.findMany({
-                orderBy: {
-                  id: 'asc'
+                select: {
+                 city: true
                 },
+                orderBy: [
+                  {
+                    city: "asc"
+                  }
+                ],
               });
     
             return res.status(200).json({
