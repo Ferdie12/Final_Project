@@ -1,4 +1,4 @@
-POST  http://localhost:3000/api/flight
+POST  http://localhost:3000/flight
 Content-Type: application/json
 
 {
@@ -7,3 +7,6 @@ Content-Type: application/json
     "date": "2023-06-18",
     "seat_type": "economy"
 }
+
+###
+GET http://localhost:3000/flight

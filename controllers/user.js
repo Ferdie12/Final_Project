@@ -44,9 +44,7 @@ module.exports = {
             const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: user.name}, otp:variabel});
             nodemailer.sendMail(user.email, 'Activation Account', html);
 
-            res.cookie("authorization", token, {
-                httpOnly: true
-            })
+            res.cookie("authorization", token)
 
             return res.status(201).json({
                 status: true,
@@ -101,9 +99,7 @@ module.exports = {
             };
 
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
-            res.cookie("authorization", token, {
-                httpOnly: true
-            })
+            res.cookie("authorization", token)
 
             return res.status(200).json({
                 status: true,
@@ -214,9 +210,7 @@ module.exports = {
             token = await jwt.sign(data, JWT_SECRET_KEY);
             const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: data.name}, otp:variabel});
             nodemailer.sendMail(data.email, 'Activation Account', html);
-            res.cookie("authorization", token, {
-                httpOnly: true
-            });
+            res.cookie("authorization", token);
         
             return res.status(200).json({
                 status: true,

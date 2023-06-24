@@ -98,39 +98,38 @@ model Order {
   flight_id Int
   payment_type_id Int
   booking_code String
-  total_passenggers Int
+  total_passengers Int
   total_price Int
   status String
   exp String
   user User @relation(fields: [user_id], references: [id])
   flight Flight @relation(fields: [flight_id], references: [id])
   payment Payment_type @relation(fields: [payment_type_id], references: [id])
-  passenggers Passengger[]
+  passenggers Passenger[]
 
   @@map("orders")
 }
 
-model Passengger {
+model Passenger {
  id Int @id @default(autoincrement())
  order_id Int
- fullname String
- family_name String
- gender String
- birthday String
- nationality String
- no_ktp String
- seat_number String
+ fullname String ?
+ person String
+ gender String ?
+ birthday String ?
+ nationality String ?
+ no_ktp String ?
  order Order @relation(fields: [order_id], references: [id])
 
- @@map("passenggers")
+ @@map("passengers")
 }
 
 model Notification {
   id Int @id @default(autoincrement())
   user_id Int
   time DateTime @db.Date @default(now())
-  header String
-  deskripsi String
+  title String
+  description String
   isread Boolean
   user User @relation(fields: [user_id], references: [id])
 

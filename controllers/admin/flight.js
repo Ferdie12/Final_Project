@@ -2,10 +2,10 @@ const prisma = require('../../prisma/config');
 const formatted = require('../../utils/format');
 
 module.exports = {
-    show: async (req,res, next) => {
+    getAll: async (req,res, next) => {
       try {
-          const flight = await prisma.flight.findMany();
-        return res.status(200).json({
+          const flight = await prisma.flight.findMany({orderBy: [{id:"asc"}]});
+          return res.status(200).json({
           message: "success",
           data: flight,
         });
@@ -16,9 +16,13 @@ module.exports = {
 
     search: async (req,res, next) => {
       try {
-        const {sort_by = "departure_time", sort_type = "asc"} = req.query;
+        let {sort_by = "departure_time", sort_type = "asc"} = req.query;
+
+        if(req.cookies.passenger){
+          res.clearCookie('passenger');
+        }
   
-        let {departure_airport, arrival_airport, date, seat_type} = req.body;
+        let {departure_airport, arrival_airport, date, seat_type, adult, child=0, baby=0} = req.body;
         if(!departure_airport || !arrival_airport || !date || !seat_type) {
           return res.status(400).json({
             status: false,
@@ -31,14 +35,10 @@ module.exports = {
         arrival_airport = formatted.city(arrival_airport);
         seat_type = seat_type.toUpperCase();
   
+  
         let sorting = [{[sort_by] : sort_type}];
-        if(sort_by == "price"){
-          sort_by = "price"
-        }else if(sort_by == "flight_duration"){
-          sort_by = "flight_duration";
-        }
 
-        
+        sort_by = sort_by == "price" || sort_by == "flight_duration" || sort_by == "arrival_time"
   
         const departureAirport = await prisma.airport.findFirst({
           where: {city: departure_airport},
@@ -69,11 +69,12 @@ module.exports = {
             data: null
           });
         }
+
+        console.log([departureAirport, arrivalAirport]);
   
         const flights = await prisma.flight.findMany({
           where: {
             flight_date: date,
-            class: seat_type,
             from: {
               city: departure_airport
             },
@@ -89,50 +90,57 @@ module.exports = {
           },
           orderBy: sorting
         });
-
-        console.log(flights);
   
         const result = flights.map(flight => {
-          const prices = formatted.currency(flight.price);
           const duration = formatted.estimation(flight.flight_duration);
-  
+
           return {
             id: flight.id,
-            flight_number: flight.airplane.model.split(" ")[1],
-            airplane_model: flight.airplane.model.split(" ")[0],
-            info: {
-              prices,
-              seat_type : flight.class,
-              baggage: flight.free_baggage,
-              cabin_baggage: flight.cabin_baggage,
-            },
-            airline:{
-              name: flight.airline.name,
-              code: flight.airline.airline_code,
-              logo: flight.airline.logo
-            },
-            departure_airport: {
-              name: flight.from.name,
-              city: flight.from.city,
-              country: flight.from.country,
-              iata: flight.from.airport_code,
-            }, 
-            arrival_airport: {
-              name: flight.to.name,
-              city: flight.to.city,
-              country: flight.to.country,
-              iata: flight.to.airport_code,
-            },
-            date: flight.flight_date,
+            logo: flight.airline.logo,
+            airline: flight.airline.name,
+            class: flight.class,
             departure_time: flight.departure_time,
             arrival_time: flight.arrival_time,
+            departure_city: flight.from.city,
+            arrival_city: flight.to.city,
             duration,
+            price: flight.price,
+            departure_airport: {
+              departure_time: flight.departure_time,
+              date: formatted.date(flight.flight_date),
+              departure_airport: flight.from.name
+            },
+            info_flight: {
+                logo: flight.airline.logo,
+                airline: flight.airline.name,
+                class: flight.class,
+                airplane_code : flight.airplane.airplane_code,
+                logo: flight.airline.logo,
+                baggage: flight.free_baggage,
+                cabin_baggage: flight.cabin_baggage
+            },
+            arrival_airport: {
+                arrival_time: flight.arrival_time,
+                date: formatted.date(flight.flight_date),
+                arrival_airport: flight.to.name
+            },
           };
         });
+
+        const passenger = {
+          adult,
+          child: child =0,
+          baby: baby =0
+        }
+
+        const total_passengers = passenger.adult + passenger.child;
+
+        res.cookie('passenger', passenger);
   
         return res.status(200).json({
           status: true,
           message: "success search flight",
+          total_passengers,
           count: result.length,
           data: result
         });
@@ -141,138 +149,54 @@ module.exports = {
       }
     },
   
-    create: async (req, res, next) => {
-      try {
-        const { airline_id, from_airport_id, to_airport_id, date, departure_time, arrival_time, estimation} = req.body;
-  
-        if (!airline_id || !from_airport_id || !to_airport_id || !date || !departure_time || !arrival_time || !estimation) {
-          return res.status(404).json({
-            message: "data tidak lengkap",
-            data: null,
-          });
-        }
-  
-        const flightData = await prisma.flight.create({
-          data: {
-            date,
-            departure_time,
-            arrival_time,
-            estimation,
-            airline: {
-              create: {airline_id}
-            },
-            from_airport: {
-                create: {from_airport_id}
-            },
-            to_airport: {
-                create: {to_airport_id}
-            },
-          },
-          include: {
-            airline: true,
-            from_airport: true,
-            to_airport: true // Include all posts in the returned object
-          },
-        })
-        return res.status(200).json({
-          message: "success",
-          data: flightData,
-        });
-      } catch (error) {
-        next(error);
-      }
-    },
-  
-    showOne: async (req, res, next) => {
+    getById: async (req, res, next) => {
       try {
           const {id} = req.params;
-        const flight = await prisma.flight.findUnique({
-          where : {id : id},
+
+          if(!id){
+            return res.status(400).json({
+              status: false,
+              message: "invalid id"
+            })
+          }
+
+          const flight = await prisma.flight.findUnique({
+          where : {id : +id},
           include: {
+            airplane:true,
             airline: true,
-            from_airport: true,
-            to_airport: true
+            from: true,
+            to: true
             },
           })
+
+          const result = {
+            departure_airport: {
+                departure_time: flight.departure_time,
+                date: flight.flight_date,
+                departure_airport: flight.from.name
+            },
+            flight: {
+                airline_class,
+                airplane_code : flight.airplane.airplane_code,
+                logo: flight.airline.logo,
+                baggage: flight.free_baggage,
+                cabin_baggage: flight.cabin_baggage
+            },
+            arrival_airport: {
+                arrival_time: flight.arrival_time,
+                date: flight.flight_date,
+                arrival_airport: flight.to.name
+            }
+          }
+
         return res.status(200).json({
+          status: true,
           message: "success",
-          data: flight,
+          data: result,
         });
       } catch (error) {
         next(error);
       }
-    },
-  
-    update: async (req, res, next) => {
-      try {
-          const updateData = req.body;
-          const {id} = req.params;
-  
-          const updateflight = await prisma.flight.update({
-              where: {
-                id: id,
-              },
-              data: updateData
-            })
-  
-          if (updateflight[0] == 0) {
-              return res.status(404).json({
-                  status: false,
-                  message: `can't find flight with id ${id}!`,
-                  data: null
-              });
-          }
-  
-          return res.status(201).json({
-              status: true,
-              message: 'success',
-              data: id
-          });
-      } catch (error) {
-          next(error);
-      }
-  },
-  
-  destroy: async (req, res, next) => {
-      try {
-          const {id} = req.params;
-          const update = await prisma.flight.update({
-              where: {
-                id: id,
-              },
-              data: {
-                airline: {
-                  deleteMany: {},
-                },
-                from_airport: {
-                  deleteMany: {},
-                },
-                to_airport: {
-                  deleteMany: {},
-                },
-              },
-            })
-          const deleteFlight = await prisma.flights.delete({
-              where: {
-                id: id,
-              },
-            })
-  
-          if (!deleteFlight) {
-              return res.status(404).json({
-                  status: false,
-                  message: `can't find flight with id ${id}!`,
-                  data: null
-              });
-          }
-  
-          return res.status(200).json({
-              status: true,
-              message: 'success',
-              data: null
-          });
-      } catch (error) {
-          next(error);
-      }
-  }
+    }
 }

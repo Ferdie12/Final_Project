@@ -80,7 +80,7 @@ CREATE TABLE "orders" (
     "flight_id" INTEGER NOT NULL,
     "payment_type_id" INTEGER NOT NULL,
     "booking_code" TEXT NOT NULL,
-    "total_passenggers" INTEGER NOT NULL,
+    "total_passengers" INTEGER NOT NULL,
     "total_price" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "exp" TEXT NOT NULL,
@@ -89,18 +89,17 @@ CREATE TABLE "orders" (
 );
 
 -- CreateTable
-CREATE TABLE "passenggers" (
+CREATE TABLE "passengers" (
     "id" SERIAL NOT NULL,
     "order_id" INTEGER NOT NULL,
-    "fullname" TEXT NOT NULL,
-    "family_name" TEXT NOT NULL,
-    "gender" TEXT NOT NULL,
-    "birthday" TEXT NOT NULL,
-    "nationality" TEXT NOT NULL,
-    "no_ktp" TEXT NOT NULL,
-    "seat_number" TEXT NOT NULL,
+    "fullname" TEXT,
+    "person" TEXT NOT NULL,
+    "gender" TEXT,
+    "birthday" TEXT,
+    "nationality" TEXT,
+    "no_ktp" TEXT,
 
-    CONSTRAINT "passenggers_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "passengers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -108,8 +107,8 @@ CREATE TABLE "notification" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "time" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "header" TEXT NOT NULL,
-    "deskripsi" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "isread" BOOLEAN NOT NULL,
 
     CONSTRAINT "notification_pkey" PRIMARY KEY ("id")
@@ -143,7 +142,7 @@ ALTER TABLE "orders" ADD CONSTRAINT "orders_flight_id_fkey" FOREIGN KEY ("flight
 ALTER TABLE "orders" ADD CONSTRAINT "orders_payment_type_id_fkey" FOREIGN KEY ("payment_type_id") REFERENCES "payment_type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "passenggers" ADD CONSTRAINT "passenggers_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "passengers" ADD CONSTRAINT "passengers_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "notification" ADD CONSTRAINT "notification_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,16 +1,18 @@
 const express = require('express');
 const user = require('./user');
 const router = express.Router();
+const middleware = require('../middleware/auth');
 
 const flightRoutes = require('./flight.js')
 const airlineRoutes = require('./airline.js')
 const airplaneRoutes = require('./airplane.js')
 const airportRoutes = require('./airport.js')
-const notificationRoutes = require('./notification.js')
+const notificationRoutes = require('./notification.js');
 const data = require('../prisma/seed/index');
+const {create, getById} = require('../controllers/order');
 
 router.use(user);
-router.use("/api", flightRoutes);
+router.use("/flight", flightRoutes);
 router.use("/airline",airlineRoutes);
 router.use("/airplane", airplaneRoutes);
 router.use("/airport", airportRoutes);
@@ -29,7 +31,11 @@ router.get('/admin/data', (req,res) => {
         status: true,
         message: "succes create"
     })
-})
+});
+
+
+router.post('/order', middleware.auth, create);
+router.get('/order/:id', middleware.auth, getById);
 
 
 module.exports = router;

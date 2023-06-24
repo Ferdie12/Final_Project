@@ -2,12 +2,9 @@ const moment = require('moment');
 
 module.exports = {
 
-    date : (date) =>{
-        return moment(date).format('DD-MM-YYYY');
-    },
-
-    time : (time) =>{
-        return moment(time).format('HH:mm');
+    date : (dateString) =>{
+        const date = moment(dateString).locale('id');
+        return date.format('D MMMM YYYY');
     },
 
     estimation : (estimation) => {
@@ -15,8 +12,8 @@ module.exports = {
         const hour = +parse[0];
         const minute = +parse[1];
       
-        const hourString = `${hour} hours`;
-        const minuteString = `${minute} minutes`;
+        const hourString = `${hour} h`;
+        const minuteString = `${minute} m`;
       
         return `${hourString} ${minuteString}`;
     },
