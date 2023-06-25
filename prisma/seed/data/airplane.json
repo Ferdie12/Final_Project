@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "airplane_code": "AIRBUS-A320-32",
     "model": "Airbus A320",
     "airline_code_fk": "8B",
@@ -8,6 +9,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 2,
     "airplane_code": "COMAC-ARJ21-31",
     "model": "COMAC ARJ21",
     "airline_code_fk": "8B",
@@ -16,6 +18,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 3,
     "airplane_code": "AIRBUS-A332-31",
     "model": "Airbus A332",
     "airline_code_fk": "GA",
@@ -24,6 +27,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 4,
     "airplane_code": "BOEING-737-31",
     "model": "Boeing 737",
     "airline_code_fk": "GA",
@@ -32,6 +36,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 5,
     "airplane_code": "BOEING-737-800-31",
     "model": "Boeing 737 Next Generation",
     "airline_code_fk": "GA",
@@ -40,6 +45,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 6,
     "airplane_code": "BOMBARDIER-CRJ-1000-31",
     "model": "Bombardier CRJ1000",
     "airline_code_fk": "GA",
@@ -48,6 +54,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 7,
     "airplane_code": "AIRBUS-A320-32",
     "model": "Airbus A320",
     "airline_code_fk": "ID",
@@ -56,6 +63,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 8,
     "airplane_code": "BOEING-737-32",
     "model": "Boeing 737",
     "airline_code_fk": "ID",
@@ -64,6 +72,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 9,
     "airplane_code": "BOEING-737-800-32",
     "model": "Boeing 737 Next Generation",
     "airline_code_fk": "ID",
@@ -72,6 +81,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 10,
     "airplane_code": "BOEING-737-30",
     "model": "Boeing 737",
     "airline_code_fk": "IL",
@@ -80,6 +90,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 11,
     "airplane_code": "ATR-72-28",
     "model": "ATR 72",
     "airline_code_fk": "IW",
@@ -88,6 +99,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 12,
     "airplane_code": "BOEING-737-29",
     "model": "Boeing 737",
     "airline_code_fk": "JT",
@@ -96,6 +108,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 13,
     "airplane_code": "BOEING-737-31",
     "model": "Boeing 737",
     "airline_code_fk": "JT",
@@ -104,6 +117,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 14,
     "airplane_code": "BOEING-737-MAX-29",
     "model": "Boeing 737 MAX",
     "airline_code_fk": "JT",
@@ -112,6 +126,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 15,
     "airplane_code": "BOEING-737-29",
     "model": "Boeing 737",
     "airline_code_fk": "NM",
@@ -120,6 +135,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 16,
     "airplane_code": "ATR-72-28",
     "model": "ATR 72",
     "airline_code_fk": "QG",
@@ -128,6 +144,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 17,
     "airplane_code": "ATR-72-31",
     "model": "ATR 72",
     "airline_code_fk": "QG",
@@ -136,6 +153,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 18,
     "airplane_code": "AIRBUS-A320-29",
     "model": "Airbus A320",
     "airline_code_fk": "QG",
@@ -144,6 +162,7 @@
     "seat_type": "STANDARD_LEGROOM"
   },
   {
+    "id": 19,
     "airplane_code": "AIRBUS-A320-32",
     "model": "Airbus A320",
     "airline_code_fk": "QG",
@@ -152,6 +171,7 @@
     "seat_type": "ABOVE_AVERAGE_LEGROOM"
   },
   {
+    "id": 20,
     "airplane_code": "BOEING-737-29",
     "model": "Boeing 737",
     "airline_code_fk": "SJ",
