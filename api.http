@@ -1,4 +1,4 @@
-POST  https://finalproject-develop.up.railway.app/flight
+POST  http://localhost:3000/
 Content-Type: application/json
 
 {
@@ -9,4 +9,4 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/flight
+GET https://finalproject-develop.up.railway.app/admin/data/flight

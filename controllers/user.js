@@ -9,7 +9,22 @@ const imagekit = require('../utils/imagekit');
 module.exports = {
     register: async (req, res) => {
         try {
-            const {name, email, password, phone } = req.body;
+            const {name, email, password, confirmpassword, phone } = req.body;
+
+            if(!name|| !email|| !password|| !confirmpassword|| !phone){
+                return res.status(400).json({
+                    status:false,
+                    message: "you must input all value"
+                })
+            }
+            
+            if(password != confirmpassword){
+                return res.status(400).json({
+                    status:false,
+                    message: "password is not match"
+                })
+            }
+
             const exist = await prisma.user.findUnique({where: {email}});
             if (exist) {
                 return res.status(400).json({
@@ -18,6 +33,8 @@ module.exports = {
                 });
             }
 
+            let otp = Math.floor(Math.random() * 900000) + 100000;
+
             const hashPassword = await bcryp.hash(password, 10);
             const user = await prisma.user.create({
                 data: {
@@ -25,30 +42,20 @@ module.exports = {
                     email,
                     password: hashPassword,
                     phone,
+                    otp,
                     user_type: 'basic',
                     role: 'buyer',
                     activation: false
                 }
             });
 
-            let variabel = Math.floor(Math.random() * 900000) + 100000;
-            const payload = {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                otp: variabel
-            };
-
-            const token = await jwt.sign(payload, JWT_SECRET_KEY);
-
-            const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: user.name}, otp:variabel});
+            const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: user.name}, otp});
             nodemailer.sendMail(user.email, 'Activation Account', html);
-
-            res.cookie("authorization", token)
 
             return res.status(201).json({
                 status: true,
-                message: "you must to activation your accout"
+                message: "you must to activation your accout",
+                data: user.id
             })
 
         } catch (error) {
@@ -99,7 +106,9 @@ module.exports = {
             };
 
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
-            res.cookie("authorization", token)
+            res.cookie("authorization", token, {
+                sameSite: 'None'
+              });
 
             return res.status(200).json({
                 status: true,
@@ -165,31 +174,36 @@ module.exports = {
 
     activation: async (req,res) => {
         try {
-            const token = req.cookies.authorization;
-            const {otp} = req.body;
-            if (!otp) {
+            const {user_id, otp} = req.body;
+            if (!user_id||!otp) {
                 return res.status(403).json({
                     status: false,
-                    message: 'you must to insert otp'
+                    message: 'you must input iser_id and otp'
                 });
             }
 
-            const data = await jwt.verify(token, JWT_SECRET_KEY);     
-            if(data.otp != otp){
+            const check = await prisma.user.findUnique({where: {id: user_id}, select: {otp: true}});
+
+            if (!check) {
+                return res.status(403).json({
+                    status: false,
+                    message: 'invalid request'
+                });
+            }
+
+            if(check.otp != otp){
                 return res.status(400).json({
-                    message: "otp salah"
+                    message: "you input wrong otp"
                 });
             }
 
-            const updated = await prisma.user.update({data:{activation : true},where: {id: data.id}});
+            const updated = await prisma.user.update({data:{activation : true},where: {id: user_id}});
             if (!updated) {
                 return res.status(403).json({
                     status: false,
                     message: 'activation failed'
                 });
             }
-            
-            res.clearCookie("authorization");
 
             return res.status(200).json({
                 status: true,
@@ -202,15 +216,28 @@ module.exports = {
 
     sendOtp: async (req,res) => {
         try {
-            let token = req.cookies.authorization;
-            const data = await jwt.verify(token, JWT_SECRET_KEY);
-            const variabel = Math.floor(Math.random() * 10000);
+            const {user_id} = req.body;
+            if (!user_id) {
+                return res.status(403).json({
+                    status: false,
+                    message: 'you must insert user_id'
+                });
+            }
 
-            data.otp = variabel;
-            token = await jwt.sign(data, JWT_SECRET_KEY);
-            const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: data.name}, otp:variabel});
+            let otp = Math.floor(Math.random() * 900000) + 100000;
+
+            const check = await prisma.user.update({data:{otp},where: {id: user_id}, select:{name:true}});
+
+            if (!check) {
+                return res.status(403).json({
+                    status: false,
+                    message: 'invalid request'
+                });
+            }
+
+           
+            const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: check.name}, otp});
             nodemailer.sendMail(data.email, 'Activation Account', html);
-            res.cookie("authorization", token);
         
             return res.status(200).json({
                 status: true,

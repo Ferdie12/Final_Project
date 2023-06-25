@@ -35,7 +35,7 @@ CREATE TABLE "airline" (
 
 -- CreateTable
 CREATE TABLE "airplane" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL,
     "airplane_code" TEXT NOT NULL,
     "model" TEXT NOT NULL,
     "airline_code_fk" TEXT NOT NULL,
