@@ -7,7 +7,6 @@ function insertData(){
     data_airline();
     data_airplane();
     data_airport();
-    data_flight();
 }
 
-module.exports = insertData;
+module.exports = {insertData, data_flight};
