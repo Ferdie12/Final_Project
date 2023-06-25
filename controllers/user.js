@@ -67,7 +67,7 @@ module.exports = {
         try {
             const {email, password} = req.body;
 
-            const user = await prisma.user.findUnique({where: {email}});
+            const user = await prisma.user.findFirst({where: {email}});
             if (!user) {
                 return res.status(400).json({
                     status: false,
