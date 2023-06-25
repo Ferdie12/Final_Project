@@ -1,7 +1,7 @@
 const prisma = require('../../prisma/config');
 module.exports = {
 
-    getAll : async (req,res) => {
+    getAll : async (req,res,next) => {
         try {
             const airplanes = await prisma.airplane.findMany({
                 orderBy: {
@@ -15,11 +15,11 @@ module.exports = {
                 data : airplanes
             })
         } catch (err) {
-            throw err;
+            next(err);
         }
     },
     
-    getById : async (req,res) => {
+    getById : async (req,res,next) => {
         try {
             const airplane_id = req.params.id_airplane
             const airplanes = await prisma.airplane.findUnique({
@@ -46,7 +46,7 @@ module.exports = {
             });
     
         } catch (err) {
-            throw err
+            next(err)
         }
     }
     

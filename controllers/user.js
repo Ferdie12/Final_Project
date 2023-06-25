@@ -31,7 +31,7 @@ module.exports = {
                 }
             });
 
-            const variabel = Math.floor(Math.random() * 10000);
+            let variabel = Math.floor(Math.random() * 900000) + 100000;
             const payload = {
                 id: user.id,
                 name: user.name,

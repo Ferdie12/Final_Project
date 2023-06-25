@@ -18,6 +18,7 @@ model User {
   user_type String
   avatar String?
   phone String?
+  otp Int
   role String
   activation Boolean
   notif Notification[]
@@ -101,7 +102,7 @@ model Order {
   total_passengers Int
   total_price Int
   status String
-  exp String
+  exp DateTime @db.Date
   user User @relation(fields: [user_id], references: [id])
   flight Flight @relation(fields: [flight_id], references: [id])
   payment Payment_type @relation(fields: [payment_type_id], references: [id])
@@ -113,12 +114,12 @@ model Order {
 model Passenger {
  id Int @id @default(autoincrement())
  order_id Int
- fullname String ?
+ fullname String 
  person String
- gender String ?
- birthday String ?
- nationality String ?
- no_ktp String ?
+ gender String 
+ birthday String 
+ nationality String 
+ no_ktp String 
  order Order @relation(fields: [order_id], references: [id])
 
  @@map("passengers")

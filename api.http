@@ -1,4 +1,4 @@
-POST  http://localhost:3000/flight
+POST  https://finalproject-develop.up.railway.app/flight
 Content-Type: application/json
 
 {

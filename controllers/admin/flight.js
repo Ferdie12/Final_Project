@@ -198,5 +198,71 @@ module.exports = {
       } catch (error) {
         next(error);
       }
+    },
+
+    getByIdPrice: async (req, res, next) => {
+      try {
+          const {adult, child=0} = req.cookies.passenger;
+          const {id} = req.body;
+          const total_passengers = adult + child;
+
+          if(!id){
+            return res.status(400).json({
+              status: false,
+              message: "invalid id"
+            })
+          }
+
+          const flight = await prisma.flight.findUnique({
+          where : {id : +id},
+          include: {
+            airplane:true,
+            airline: true,
+            from: true,
+            to: true
+            },
+          })
+
+          const adult_price = adult * flight.price;
+          const child_price = child * flight.price;
+          const tax = 0.1 * flight.price;
+          const total_price = total_passengers * flight.price + tax;
+
+          const result = {
+            departure_airport: {
+                departure_time: flight.departure_time,
+                date: flight.flight_date,
+                departure_airport: flight.from.name
+            },
+            flight: {
+                airline_class,
+                airplane_code : flight.airplane.airplane_code,
+                logo: flight.airline.logo,
+                baggage: flight.free_baggage,
+                cabin_baggage: flight.cabin_baggage
+            },
+            arrival_airport: {
+                arrival_time: flight.arrival_time,
+                date: flight.flight_date,
+                arrival_airport: flight.to.name
+            },
+            info_price: {
+              adult_total: adult,
+              child_total: child,
+              adult_price,
+              child_price,
+              tax,
+              total_price
+          }
+          }
+
+        return res.status(200).json({
+          status: true,
+          message: "success",
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
     }
 }

@@ -1,7 +1,7 @@
-const prisma = require('../../prisma/config');
+const prisma = require('../prisma/config');
 module.exports = {
 
-    getAll : async (req,res) => {
+    getAll : async (req,res,next) => {
         try {
             const notifications = await prisma.notification.findMany({
                 where: {user_id: req.user.id},
@@ -18,11 +18,11 @@ module.exports = {
                 data : notifications
             })
         } catch (err) {
-            throw err;
+            next(err);
         }
     },
     
-    read : async (req,res) => {
+    read : async (req,res,next) => {
         try {
             const notification_id = req.params.id_notification;
 
@@ -44,7 +44,7 @@ module.exports = {
             });
     
         } catch (err) {
-            throw err
+            next(err)
         }
     }
 }

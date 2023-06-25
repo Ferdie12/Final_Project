@@ -7,6 +7,7 @@ CREATE TABLE "users" (
     "user_type" TEXT NOT NULL,
     "avatar" TEXT,
     "phone" TEXT,
+    "otp" INTEGER NOT NULL,
     "role" TEXT NOT NULL,
     "activation" BOOLEAN NOT NULL,
 
@@ -83,7 +84,7 @@ CREATE TABLE "orders" (
     "total_passengers" INTEGER NOT NULL,
     "total_price" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
-    "exp" TEXT NOT NULL,
+    "exp" DATE NOT NULL,
 
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
 );
@@ -92,12 +93,12 @@ CREATE TABLE "orders" (
 CREATE TABLE "passengers" (
     "id" SERIAL NOT NULL,
     "order_id" INTEGER NOT NULL,
-    "fullname" TEXT,
+    "fullname" TEXT NOT NULL,
     "person" TEXT NOT NULL,
-    "gender" TEXT,
-    "birthday" TEXT,
-    "nationality" TEXT,
-    "no_ktp" TEXT,
+    "gender" TEXT NOT NULL,
+    "birthday" TEXT NOT NULL,
+    "nationality" TEXT NOT NULL,
+    "no_ktp" TEXT NOT NULL,
 
     CONSTRAINT "passengers_pkey" PRIMARY KEY ("id")
 );
