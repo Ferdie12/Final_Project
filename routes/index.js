@@ -9,7 +9,7 @@ const airportRoutes = require('./airport.js')
 const notificationRoutes = require('./notification.js');
 const orderRoutes = require('./order');
 const paymentRoutes = require('./payment');
-const data = require('../prisma/seed/index');
+const {insertData, data_flight} = require('../prisma/seed/index');
 
 router.use(user);
 router.use("/flight", flightRoutes);
@@ -28,7 +28,15 @@ router.get('/', (req,res) => {
 });
 
 router.get('/admin/data', (req,res) => {
-    data();
+    insertData();
+    return res.status(200).json({
+        status: true,
+        message: "succes create"
+    })
+});
+
+router.get('/admin/data/flight',(req,res) => {
+    data_flight();
     return res.status(200).json({
         status: true,
         message: "succes create"
