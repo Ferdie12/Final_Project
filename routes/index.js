@@ -27,7 +27,7 @@ router.get('/', (req,res) => {
     })
 });
 
-router.get('/admin/data', middleware.auth, middleware.adminOnly, (req,res) => {
+router.get('/admin/data', (req,res) => {
     data();
     return res.status(200).json({
         status: true,
