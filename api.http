@@ -1,18 +1,5 @@
-POST  http://localhost:3000/flight
-Content-Type: application/json
-
-{
-    "departure_airport": "jakarta",
-    "arrival_airport": "makassar",
-    "date": "2023-06-18",
-    "seat_type": "economy"
-}
-
-###
-GET https://finalproject-develop.up.railway.app/admin/data/flight
-
-###
-POST http://localhost:3000/auth/login
+### post register
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
@@ -21,4 +8,23 @@ Content-Type: application/json
     "name": "ferdie",
     "confirmpassword": "123",
     "phone": "22"
+}
+
+### activation
+POST http://localhost:3000/validasi
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "otp": 123456
+}
+### post search result
+POST  https://finalproject-develop.up.railway.app/flight
+Content-Type: application/json
+
+{
+    "departure_airport": "jakarta",
+    "arrival_airport": "makassar",
+    "date": "2023-06-18",
+    "seat_type": "economy"
 }
