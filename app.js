@@ -9,8 +9,6 @@ const cors = require('cors');
 
 app.use(cors({
     origin: 'http://localhost:5173', // Atur origin yang diizinkan (contoh: http://localhost:3000)
-    methods: ['GET', 'POST', 'PUT'], // Atur metode yang diizinkan (contoh: GET, POST)
-    allowedHeaders: ['Content-Type', 'Authorization'], // Atur header yang diizinkan (contoh: Content-Type, Authorization)
     credentials: true // Izinkan kredensial (cookie, header, dll.)
   }));
 app.use(cookie());
