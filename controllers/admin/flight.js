@@ -121,7 +121,7 @@ module.exports = {
                 arrival_airport: flight.to.name
             },
           };
-        });S
+        });
   
         return res.status(200).json({
           status: true,
