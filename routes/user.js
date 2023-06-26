@@ -5,6 +5,12 @@ const multer = require('multer')();
 
 const router = express.Router();
 
+router.get('/tes', middleware.auth, (req,res) =>{
+    return res.status(200).json({
+        data: req.user.name
+    })
+})
+
 router.post('/validasi', user.activation);
 router.post('/auth/register', user.register);
 router.get('/sendotp', user.sendOtp);

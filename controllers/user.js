@@ -106,13 +106,11 @@ module.exports = {
             };
 
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
-            res.cookie("authorization", token, {
-                httpOnly: true,
-              });
 
             return res.status(200).json({
                 status: true,
-                message: 'login success!'
+                message: 'login success!',
+                data: token
             });
 
         } catch (error) {
@@ -159,13 +157,10 @@ module.exports = {
 
         const token = await jwt.sign(payload, JWT_SECRET_KEY);
 
-        res.cookie("authorization", token, {
-            httpOnly: true
-        })
-
         return res.status(200).json({
             status: true,
-            message: 'login success!'
+            message: 'login success!',
+            data: token
         });
         } catch (error) {
             throw error
