@@ -189,7 +189,8 @@ module.exports = {
 
     getByIdPrice: async (req, res, next) => {
       try {
-          const {id, adult, child=0} = req.body;
+          const id = req.user.id
+          const {adult, child=0} = req.body;
           const total_passengers = adult + child;
 
           if(!id){

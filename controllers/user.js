@@ -318,33 +318,67 @@ module.exports = {
         }
     },
 
-    update: async (req,res) => {
-        
-        const{id} = req.user;
-        const stringFile = req.file.buffer.toString('base64');
+    updateAvatar: async (req,res) => {
+        try {
+            const{id} = req.user;
+            const stringFile = req.file.buffer.toString('base64');
 
-            const uploadFile = await imagekit.upload({
-                fileName: req.file.originalname,
-                file: stringFile
-            });
+                const uploadFile = await imagekit.upload({
+                    fileName: req.file.originalname,
+                    file: stringFile
+                });
 
 
-        const updated = await User.update({avatar: uploadFile.url}, {where: {id: id}});
+            const updated = await prisma.user.update({data:{avatar: uploadFile.url}, where: {id: id}});
 
-        if (updated[0] == 0) {
-            return res.status(404).json({
-                status: false,
-                message: `can't find user with id ${id}!`,
-                data: null
-            });
-        }
-
-        return res.status(201).json({
-            status: true,
-            message: 'success',
-            data: {
-                url_image:uploadFile.url
+            if (!updated) {
+                return res.status(404).json({
+                    status: false,
+                    message: `can't find user with id ${id}!`,
+                    data: null
+                });
             }
-        });
+
+            return res.status(201).json({
+                status: true,
+                message: 'success',
+                data: {
+                    url_image:uploadFile.url
+                }
+            });
+        } catch (error) {
+            throw error
+        }
+    },
+
+    updateProfile: async (req,res) => {
+        try {
+            const{id} = req.user;
+            const {name, email, phone}= req.body
+
+            if(!name|| !email|| !phone){
+                return res.status(200).json({
+                    status: false,
+                    message: 'you must input value on form'
+                })
+            }
+
+            const updated = await prisma.user.update({data:{name, email, phone}, where: {id: id}});
+
+            if (!updated) {
+                return res.status(404).json({
+                    status: false,
+                    message: `can't find user with id ${id}!`,
+                    data: null
+                });
+            }
+
+            return res.status(201).json({
+                status: true,
+                message: 'updated success',
+            });
+        } catch (error) {
+            throw error
+        }
     }
 };
