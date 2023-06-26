@@ -67,7 +67,7 @@ module.exports = {
         try {
             const {email, password} = req.body;
 
-            const user = await prisma.user.findFirst({where: {email}});
+            const user = await prisma.user.findUnique({where: {email}});
             if (!user) {
                 return res.status(400).json({
                     status: false,
@@ -106,9 +106,7 @@ module.exports = {
             };
 
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
-            res.cookie("authorization", token, {
-                sameSite: 'None'
-              });
+            res.cookie("authorization", token);
 
             return res.status(200).json({
                 status: true,
