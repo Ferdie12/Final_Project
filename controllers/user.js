@@ -108,7 +108,8 @@ module.exports = {
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
             res.cookie("authorization", token, {
                 sameSite: 'None',
-                httpOnly: true
+                httpOnly: true,
+                path: "/"
               });
 
             return res.status(200).json({
