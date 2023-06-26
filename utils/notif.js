@@ -1,9 +1,9 @@
 const prisma = require("../prisma/config");
 
 module.exports = {
-	sendNotif: (notifs) => {
+	sendNotif: (notification) => {
 		try {
-			notifs.forEach(async notif => {
+			notification.forEach(async notif => {
 				await prisma.notification.create({
                     data: {
                         user_id: notif.user_id,

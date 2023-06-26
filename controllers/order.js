@@ -153,8 +153,6 @@ module.exports = {
                 await prisma.passenger.create({data: {order_id: orders.id, ...value}});
             }));
 
-            res.clearCookie("passenger");
-
             return res.status(200).json({
                 status: true,
                 message: "succes create",

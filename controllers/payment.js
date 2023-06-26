@@ -1,4 +1,5 @@
 const prisma = require("../prisma/config");
+const notification = require('../utils/notif');
 
 module.exports = {
     checkout: async (req,res,next) => {
@@ -13,7 +14,15 @@ module.exports = {
             };
 
             const check = await prisma.order.findUnique({
-                where: {id: order_id, user_id: req.user.id}
+                where: {id: order_id, user_id: req.user.id},
+                include: {
+                    flight: {
+                        select:{
+                            from:true,
+                            to: true
+                        }
+                    }
+                }
             })
 
             if(!check){
@@ -47,6 +56,14 @@ module.exports = {
                 data: {payment_type_id: payment_id, status:"ISSUED"},
                 where: {id: order_id, user_id:req.user.id},
             });
+
+            const notifData = [{
+				title: "Succes Payment",
+				description: `you order ticket from ${order.flight.from.name} to ${order.flight.to.name}, total price ${order.total_price}`,
+				user_id: req.user.id
+			}];
+
+			notification.sendNotif(notifData);
 
             return res.status(200).json({
                 status:true,

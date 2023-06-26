@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const {JWT_SECRET_KEY} = process.env;
 const oauth2 = require('../utils/oauth');
 const imagekit = require('../utils/imagekit');
+const notification = require('../utils/notif');
 
 module.exports = {
     register: async (req, res) => {
@@ -199,6 +200,14 @@ module.exports = {
                     message: 'activation failed'
                 });
             }
+
+            const notifData = [{
+				title: "Welcome To Quicktix",
+				description: `your account succes registered in quicktix`,
+				user_id: updated.id
+			}];
+
+			notification.sendNotif(notifData);
 
             return res.status(200).json({
                 status: true,
