@@ -17,10 +17,6 @@ module.exports = {
     search: async (req,res, next) => {
       try {
         let {sort_by = "departure_time", sort_type = "asc"} = req.query;
-
-        if(req.cookies.passenger){
-          res.clearCookie('passenger');
-        }
   
         let {departure_airport, arrival_airport, date, seat_type, adult, child=0, baby=0} = req.body;
         if(!departure_airport || !arrival_airport || !date || !seat_type) {
@@ -125,22 +121,13 @@ module.exports = {
                 arrival_airport: flight.to.name
             },
           };
-        });
-
-        const passenger = {
-          adult,
-          child: child =0,
-          baby: baby =0
-        }
-
-        const total_passengers = passenger.adult + passenger.child;
-
-        res.cookie('passenger', passenger);
+        });S
   
         return res.status(200).json({
           status: true,
           message: "success search flight",
-          total_passengers,
+          adult,
+          child,
           count: result.length,
           data: result
         });
@@ -202,8 +189,7 @@ module.exports = {
 
     getByIdPrice: async (req, res, next) => {
       try {
-          const {adult, child=0} = req.cookies.passenger;
-          const {id} = req.body;
+          const {id, adult, child=0} = req.body;
           const total_passengers = adult + child;
 
           if(!id){

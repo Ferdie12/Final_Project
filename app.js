@@ -7,10 +7,7 @@ const router = require('./routes');
 const cors = require('cors');
 
 
-app.use(cors({
-    origin: 'http://localhost:5173', // Atur origin yang diizinkan (contoh: http://localhost:3000)
-    credentials: true // Izinkan kredensial (cookie, header, dll.)
-  }));
+app.use(cors());
 app.use(cookie());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

@@ -248,24 +248,34 @@ module.exports = {
         try {
             const {email} = req.body;
 
-            const user = await prisma.user.findUnique({where: {email}});
-            if (user) {
-                const payload = {
-                    id: user.id
-                };
-
-                const url = `${req.protocol}://${req.get('host')}/reset`;
-                const token = await jwt.sign(payload, JWT_SECRET_KEY);
-                const html = await nodemailer.getHtml('email/resetpassword.ejs', {name: user.name, url});
-                nodemailer.sendMail(user.email, 'Reset password request', html);
-
-                res.cookie("authorization", token);
+            if (!email) {
+                return res.status(400).json({
+                    status: false,
+                    message: "you must input email on form"
+                })
             }
+
+            const user = await prisma.user.findUnique({where: {email}});
+            if (!user) {
+                return res.status(400).json({
+                    status: false,
+                    message: "email is not registered"
+                })
+            }
+
+            const payload = {
+                id: user.id
+            };
+
+            const url = `${req.protocol}://${req.get('host')}/reset`;
+            const token = await jwt.sign(payload, JWT_SECRET_KEY);
+            const html = await nodemailer.getHtml('email/resetpassword.ejs', {name: user.name, url});
+            nodemailer.sendMail(user.email, 'Reset password request', html);
 
             return res.status(200).json({
                 status: true,
                 message: 'we will send a email if the email is registered!',
-                data: null
+                data: token
             });
         } catch (error) {
             throw error
@@ -274,13 +284,12 @@ module.exports = {
 
     resetPassword: async (req,res) => {
         try {
-            const {new_password, confirm_new_password} = req.body;
-            const token = req.cookies.authorization;
+            const {new_password, confirm_new_password, token} = req.body;
             if (!token) {
                 return res.status(400).json({message: "credential is not valid"});
             }
             if (new_password != confirm_new_password) {
-                return res.status(400).json({message: "password tidak sesuai dengan confirm password"});
+                return res.status(400).json({message: "password and confirm password is not match"});
             }
 
             const hashPassword = await bcryp.hash(new_password, 10);
@@ -288,7 +297,7 @@ module.exports = {
 
             const updated = await prisma.user.update({data: {password: hashPassword}, where: {id: data.id}});
             if (!updated) {
-                return res.status(400).json({message: "gagal"});
+                return res.status(400).json({message: "fail update new passport"});
             }
 
             return res.status(200).json({

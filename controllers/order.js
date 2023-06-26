@@ -99,8 +99,7 @@ module.exports = {
 
     create: async (req,res,next) => {
         try {
-            const passengers = req.cookies.passenger;
-            const {flight_id, data_passengers} = req.body;
+            const {flight_id, data_passengers, passengers} = req.body;
             const total_passengers = passengers.adult + passengers.child;
 
             if(!flight_id || !data_passengers || !passengers){

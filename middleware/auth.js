@@ -4,8 +4,8 @@ const {JWT_SECRET_KEY} = process.env;
 module.exports = {
     auth: async (req, res, next) => {
         try {
-            const {authorization} = req.cookies;
-            console.log(authorization);
+            const {authorization} = req.headers;
+
             if (!authorization) {
                 return res.status(401).json({
                     status: false,
