@@ -200,14 +200,17 @@ module.exports = {
                     message: 'activation failed'
                 });
             }
-
-            const notifData = [{
-				title: "Welcome To Quicktix",
-				description: `your account succes registered in quicktix`,
-				user_id: updated.id
-			}];
-
-			notification.sendNotif(notifData);
+            
+            const checkNotif = await prisma.notification.findFirst({where: {user_id: updated.id}});
+            if(!checkNotif){
+                const notifData = {
+                    title: "Welcome To Quicktix",
+                    description: `your account succes registered in quicktix`,
+                    user_id: updated.id
+                };
+    
+                notification.sendNotif(notifData);
+            }
 
             return res.status(200).json({
                 status: true,
@@ -220,7 +223,7 @@ module.exports = {
 
     sendOtp: async (req,res) => {
         try {
-            const {user_id} = req.body;
+            const {user_id} = req.query;
             if (!user_id) {
                 return res.status(403).json({
                     status: false,
@@ -230,7 +233,7 @@ module.exports = {
 
             let otp = Math.floor(Math.random() * 900000) + 100000;
 
-            const check = await prisma.user.update({data:{otp},where: {id: user_id}, select:{name:true}});
+            const check = await prisma.user.update({data:{otp},where: {id: +user_id}, select:{name:true, email: true}});
 
             if (!check) {
                 return res.status(403).json({
@@ -241,7 +244,7 @@ module.exports = {
 
            
             const html = await nodemailer.getHtml('email/activation.ejs', {user: {name: check.name}, otp});
-            nodemailer.sendMail(data.email, 'Activation Account', html);
+            nodemailer.sendMail(check.email, 'Activation Account', html);
         
             return res.status(200).json({
                 status: true,
@@ -293,7 +296,8 @@ module.exports = {
 
     resetPassword: async (req,res) => {
         try {
-            const {new_password, confirm_new_password, token} = req.body;
+            const {token} = req.query
+            const {new_password, confirm_new_password} = req.body;
             if (!token) {
                 return res.status(400).json({message: "credential is not valid"});
             }
@@ -354,29 +358,28 @@ module.exports = {
     updateProfile: async (req,res) => {
         try {
             const{id} = req.user;
-            const {name, email, phone}= req.body
 
-            if(!name|| !email|| !phone){
-                return res.status(200).json({
+            if(req.body.name || req.body.email || req.body.phone){
+                const updated = await prisma.user.update({data:req.body, where: {id: id}});
+    
+                if (!updated) {
+                    return res.status(404).json({
+                        status: false,
+                        message: `can't find user with id ${id}!`,
+                        data: null
+                    });
+                }
+    
+                return res.status(201).json({
+                    status: true,
+                    message: 'updated success',
+                });
+            } else {
+                return res.status(400).json({
                     status: false,
-                    message: 'you must input value on form'
+                    message: "must to input one value "
                 })
             }
-
-            const updated = await prisma.user.update({data:{name, email, phone}, where: {id: id}});
-
-            if (!updated) {
-                return res.status(404).json({
-                    status: false,
-                    message: `can't find user with id ${id}!`,
-                    data: null
-                });
-            }
-
-            return res.status(201).json({
-                status: true,
-                message: 'updated success',
-            });
         } catch (error) {
             throw error
         }

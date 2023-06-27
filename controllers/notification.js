@@ -26,7 +26,7 @@ module.exports = {
         try {
             const notification_id = req.params.id_notification;
 
-            const notifications = await prisma.notification.findUnique({where: {id: notification_id}});
+            const notifications = await prisma.notification.findUnique({where: {id: +notification_id}});
             
             if(!notifications){
                 return res.status(404).json({
@@ -35,7 +35,16 @@ module.exports = {
                 });
             }
 
-            const read = await prisma.notification.update({data: {isread: true},where: {id: notification_id, user_id: req.user.id}})
+            const check = await prisma.notification.findFirst({where: {user_id: req.user.id}});
+            
+            if(!check){
+                return res.status(404).json({
+                    status : false,
+                    message: `cannot get notification with user id not found`
+                });
+            }
+
+            const read = await prisma.notification.update({data: {isread: true},where: {id: +notification_id}})
             
             return res.status(200).json({
                 status : true,

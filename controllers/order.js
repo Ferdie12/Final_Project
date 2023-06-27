@@ -134,8 +134,9 @@ module.exports = {
             const today = new Date();
             const threeDaysLater = new Date(today);
             threeDaysLater.setDate(today.getDate() + 3);
-            
-            const total_price = total_passengers * flight.price;
+
+            const tax = Math.floor(0.1 * flight.price);
+            const total_price = total_passengers * flight.price + tax;
             
             const orders = await prisma.order.create({
                 data: {
@@ -216,7 +217,7 @@ module.exports = {
             
             const adult_price = adult * orders.flight.price;
             const child_price = child * orders.flight.price;
-            const tax = 0.1 * orders.flight.price;
+            const tax = Math.floor(0.1 * orders.flight.price);
             const total_price = orders.total_passengers * orders.flight.price + tax;
 
             const result = {

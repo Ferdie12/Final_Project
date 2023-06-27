@@ -5,6 +5,6 @@ const middleware = require("../middleware/auth.js");
 
 router.get('/', middleware.auth, order.getAll);
 router.get('/one/:id', middleware.auth,order.getById);
-router.get('/create', middleware.auth,order.create);
+router.post('/create', middleware.auth,order.create);
 
 module.exports = router;

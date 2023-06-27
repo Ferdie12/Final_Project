@@ -13,8 +13,12 @@ module.exports = {
                 })
             };
 
-            const check = await prisma.order.findUnique({
-                where: {id: order_id, user_id: req.user.id},
+            const check = await prisma.order.findFirst({
+                where: {
+                AND:[
+                    {id: order_id},
+                    {user_id: req.user.id}
+                ]},
                 include: {
                     flight: {
                         select:{
@@ -40,10 +44,10 @@ module.exports = {
             }
 
             const today = new Date();
-            const dateToCheck = new Date(order.exp);
+            const dateToCheck = new Date(check.exp);
             const todayFormatted = today.toISOString().split('T')[0];
             const dateToCheckFormatted = dateToCheck.toISOString().split('T')[0];
-            const isToday = dateToCheckFormatted === todayFormatted;
+            const isToday = dateToCheckFormatted >= todayFormatted;
 
             if(!isToday){
                 return res.status(400).json({
@@ -52,16 +56,16 @@ module.exports = {
                 })
             }
 
-            const order = await prisma.order.update({
+            const order = await prisma.order.updateMany({
                 data: {payment_type_id: payment_id, status:"ISSUED"},
                 where: {id: order_id, user_id:req.user.id},
             });
 
-            const notifData = [{
+            const notifData = {
 				title: "Succes Payment",
-				description: `you order ticket from ${order.flight.from.name} to ${order.flight.to.name}, total price ${order.total_price}`,
+				description: `you order ticket from ${check.flight.from.name} to ${check.flight.to.name}, total price ${check.total_price}`,
 				user_id: req.user.id
-			}];
+			};
 
 			notification.sendNotif(notifData);
 

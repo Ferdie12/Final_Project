@@ -24,9 +24,6 @@ module.exports = {
             const airplane_id = req.params.id_airplane
             const airplanes = await prisma.airplane.findUnique({
                 where: {id: +airplane_id},
-                orderBy:{
-                    id: "asc"
-                },
                 include: {
                     airline: true
                 }

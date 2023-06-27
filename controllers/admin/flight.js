@@ -164,7 +164,8 @@ module.exports = {
                 departure_airport: flight.from.name
             },
             flight: {
-                airline_class,
+                airline_name: flight.airline.name,
+                airline_class: flight.class,
                 airplane_code : flight.airplane.airplane_code,
                 logo: flight.airline.logo,
                 baggage: flight.free_baggage,
@@ -191,7 +192,7 @@ module.exports = {
       try {
           const {id} = req.params;
           const {adult, child=0} = req.query;
-          const total_passengers = adult + child;
+          const total_passengers = +adult + +child;
 
           if(!id){
             return res.status(400).json({
@@ -210,9 +211,9 @@ module.exports = {
             },
           })
 
-          const adult_price = adult * flight.price;
-          const child_price = child * flight.price;
-          const tax = 0.1 * flight.price;
+          const adult_price = +adult * flight.price;
+          const child_price = +child * flight.price;
+          const tax = Math.floor(0.1 * flight.price);
           const total_price = total_passengers * flight.price + tax;
 
           const result = {
@@ -222,7 +223,8 @@ module.exports = {
                 departure_airport: flight.from.name
             },
             flight: {
-                airline_class,
+                airline_name: flight.airline.name,
+                airline_class: flight.class,
                 airplane_code : flight.airplane.airplane_code,
                 logo: flight.airline.logo,
                 baggage: flight.free_baggage,
@@ -234,8 +236,8 @@ module.exports = {
                 arrival_airport: flight.to.name
             },
             info_price: {
-              adult_total: adult,
-              child_total: child,
+              adult_total: +adult,
+              child_total: +child,
               adult_price,
               child_price,
               tax,

@@ -3,9 +3,9 @@ const router = express.Router();
 const flight = require('../controllers/admin/flight.js')
 
 router.get('/', flight.getAll);
-router.post('/', flight.search);
+router.post('/search', flight.search);
 router.get('/:id', flight.getById);
-router.get('/price/:id', flight.getById);
+router.get('/price/:id', flight.getByIdPrice);
 
 
 module.exports = router
