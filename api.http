@@ -19,12 +19,15 @@ Content-Type: application/json
     "otp": 123456
 }
 ### post search result
-POST  https://finalproject-develop.up.railway.app/flight
+POST  http://localhost:3000/flight/search
 Content-Type: application/json
 
 {
-    "departure_airport": "jakarta",
-    "arrival_airport": "makassar",
+    "departure_airport": "Jakarta",
+    "arrival_airport": "Banda Aceh",
     "date": "2023-06-18",
-    "seat_type": "economy"
+    "seat_type": "Economy"
 }
+
+###
+GET https://finalproject-develop.up.railway.app/airport

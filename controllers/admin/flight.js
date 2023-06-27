@@ -27,8 +27,6 @@ module.exports = {
           });
         };
         
-        departure_airport = formatted.city(departure_airport);
-        arrival_airport = formatted.city(arrival_airport);
         seat_type = seat_type.toUpperCase();
   
   
@@ -61,7 +59,7 @@ module.exports = {
         if(!arrivalAirport) {
           return res.status(400).json({
             status: false,
-            message: "departure airport not found",
+            message: "arrival airport not found",
             data: null
           });
         }
