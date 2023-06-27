@@ -24,11 +24,7 @@ module.exports = {
                 clientSecret: GOOGLE_CLIENT_SECRET,
                 refreshToken: GOOGLE_REFRESH_TOKEN,
                 accessToken: accessToken
-            },
-            tls: {
-                rejectUnauthorized: false
-            },
-            requireTLS: true
+            }
         });
 
         transport.sendMail({from: `Ferdie Maulana < ${process.env.USER} >`,to, subject, html});

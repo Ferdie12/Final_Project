@@ -55,7 +55,7 @@ module.exports = {
 
             return res.status(201).json({
                 status: true,
-                message: "you must to activation your accout",
+                message: "we send otp to your email and you must to activation your accout",
                 data: user.id
             })
 
