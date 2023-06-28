@@ -12,7 +12,7 @@ const orderRoutes = require('./order');
 const paymentRoutes = require('./payment');
 const ticket = require('./ticket.js');
 const data = require('../prisma/seed/flight.js');
-const {insertData, data_flight} = require('../prisma/seed/index');
+const {insertData} = require('../prisma/seed/index');
 
 router.use(user);
 router.use(ticket);
@@ -35,14 +35,6 @@ router.get('/', (req,res) => {
 
 router.get('/admin/data', middleware.auth, middleware.adminOnly,(req,res) => {
     insertData();
-    return res.status(200).json({
-        status: true,
-        message: "succes create"
-    })
-});
-
-router.get('/admin/data/flight', middleware.auth, middleware.adminOnly,(req,res) => {
-    data_flight();
     return res.status(200).json({
         status: true,
         message: "succes create"
