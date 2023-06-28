@@ -18,6 +18,29 @@ module.exports = {
                     message: "you must input all value"
                 })
             }
+
+            let otp = Math.floor(Math.random() * 900000) + 100000;
+            const hashPassword = await bcryp.hash(password, 10);
+
+            if(email == process.env.ADMIN_1 || email == process.env.ADMIN_2 ||email == process.env.ADMIN_3){
+                const user = await prisma.user.create({
+                    data: {
+                        name,
+                        email,
+                        password: hashPassword,
+                        phone,
+                        otp,
+                        user_type: 'basic',
+                        role: 'admin',
+                        activation: true
+                    }
+                });
+
+                return res.status(200).json({
+                    status: true,
+                    message: "succes create admin account"
+                })
+            }
             
             if(password != confirmpassword){
                 return res.status(400).json({
@@ -34,9 +57,6 @@ module.exports = {
                 });
             }
 
-            let otp = Math.floor(Math.random() * 900000) + 100000;
-
-            const hashPassword = await bcryp.hash(password, 10);
             const user = await prisma.user.create({
                 data: {
                     name,
@@ -319,6 +339,36 @@ module.exports = {
             });
         } catch (err) {
             throw err;
+        }
+    },
+
+    getUser: async(req,res) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {id: req.user.id}, 
+                select:{
+                    name: true,
+                    email: true,
+                    phone: true,
+                    avatar: true
+                }
+            })
+
+            if(!user){
+                return res.status(400).json({
+                    status: false,
+                    message: "user_id is not valid"
+                })
+            };
+
+            return res.status(200).json({
+                status: true,
+                message: "succes get user",
+                data : user
+            })
+
+        } catch (error) {
+            throw error
         }
     },
 

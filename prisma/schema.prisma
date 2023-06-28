@@ -107,6 +107,7 @@ model Order {
   flight Flight @relation(fields: [flight_id], references: [id])
   payment Payment_type @relation(fields: [payment_type_id], references: [id])
   passenggers Passenger[]
+  ticket Ticket?
 
   @@map("orders")
 }
@@ -119,7 +120,7 @@ model Passenger {
  gender String 
  birthday String 
  nationality String 
- no_ktp String 
+ no_ktp String?
  order Order @relation(fields: [order_id], references: [id])
 
  @@map("passengers")
@@ -135,4 +136,11 @@ model Notification {
   user User @relation(fields: [user_id], references: [id])
 
   @@map("notification")
+}
+
+model Ticket {
+  id Int @id @default(autoincrement())
+  order_id Int @unique
+  url String
+  order Order @relation(fields: [order_id], references: [id])
 }

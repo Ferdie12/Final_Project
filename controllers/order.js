@@ -117,9 +117,9 @@ module.exports = {
             }
 
             data_passengers.map(async (passenger) => {
-                const {fullname, gender, birthday, person, nationality, no_ktp} = passenger;
+                const {fullname, gender, birthday, person, nationality} = passenger;
 
-                if ( !fullname || !gender || !birthday ||  !nationality ||!person|| !no_ktp) {
+                if ( !fullname || !gender || !birthday ||  !nationality ||!person) {
                     return res.status(404).json({
                     status: false,
                     message: 'you not input valid value',

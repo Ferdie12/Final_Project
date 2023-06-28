@@ -74,7 +74,8 @@ module.exports = {
             },
             to: {
               city: arrival_airport
-            }
+            },
+            class: seat_type
           },
           include: {
             airplane: true,

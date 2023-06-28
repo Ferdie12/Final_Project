@@ -1,4 +1,5 @@
 const express = require('express');
+const middleware = require("../middleware/auth.js");
 const router = express.Router();
 
 const user = require('./user');
@@ -9,9 +10,11 @@ const airportRoutes = require('./airport.js')
 const notificationRoutes = require('./notification.js');
 const orderRoutes = require('./order');
 const paymentRoutes = require('./payment');
+const ticket = require('./ticket.js');
 const {insertData, data_flight} = require('../prisma/seed/index');
 
 router.use(user);
+router.use(ticket);
 router.use("/flight", flightRoutes);
 router.use("/airline",airlineRoutes);
 router.use("/airplane", airplaneRoutes);
@@ -20,6 +23,7 @@ router.use("/notif",notificationRoutes);
 router.use("/order", orderRoutes);
 router.use("/payment", paymentRoutes);
 
+
 router.get('/', (req,res) => {
     return res.status(200).json({
         status: true,
@@ -27,19 +31,21 @@ router.get('/', (req,res) => {
     })
 });
 
-router.get('/admin/data', (req,res) => {
+router.get('/admin/data', middleware.auth, middleware.adminOnly,(req,res) => {
     insertData();
     return res.status(200).json({
         status: true,
         message: "succes create"
     })
 });
-router.get('/admin/data/flight', (req,res) => {
+
+router.get('/admin/data/flight', middleware.auth, middleware.adminOnly,(req,res) => {
     data_flight();
     return res.status(200).json({
         status: true,
         message: "succes create"
     })
 });
+
 
 module.exports = router;

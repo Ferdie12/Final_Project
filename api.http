@@ -1,13 +1,10 @@
 ### post register
-POST http://localhost:3000/auth/register
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "ancikocii@gmail.com",
-    "name": "ferdie",
-    "password": "123",
-    "confirmpassword": "123",
-    "phone": "22"
+    "email": "maulanaferdie1@gmail.com",
+    "password": "123"
 }
 
 ### activation
@@ -25,9 +22,19 @@ Content-Type: application/json
 {
     "departure_airport": "Jakarta",
     "arrival_airport": "Banda Aceh",
-    "date": "2023-06-18",
+    "date": "2023-07-16",
     "seat_type": "Economy"
 }
 
 ###
-GET https://finalproject-develop.up.railway.app/airport
+post http://localhost:3000/ticket
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU0ODQxfQ.qaKEFuVeJlp9rFPWxO8fu_w6gOfQ9yl54ARlU022cA0
+
+{
+    "order_id": 1
+}
+
+###
+GET http://localhost:3000/admin/data/flight
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU0ODQxfQ.qaKEFuVeJlp9rFPWxO8fu_w6gOfQ9yl54ARlU022cA0
