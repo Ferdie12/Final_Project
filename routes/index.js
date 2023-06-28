@@ -11,10 +11,12 @@ const notificationRoutes = require('./notification.js');
 const orderRoutes = require('./order');
 const paymentRoutes = require('./payment');
 const ticket = require('./ticket.js');
+const data = require('../prisma/seed/flight.js');
 const {insertData, data_flight} = require('../prisma/seed/index');
 
 router.use(user);
 router.use(ticket);
+router.use(data);
 router.use("/flight", flightRoutes);
 router.use("/airline",airlineRoutes);
 router.use("/airplane", airplaneRoutes);

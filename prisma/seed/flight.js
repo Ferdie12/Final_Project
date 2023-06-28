@@ -7,4 +7,15 @@ async function main() {
     console.log(data);
 }
 
-module.exports = main;
+const express = require("express");
+const router = express.Router();
+
+router.get('/data/flight', async (req,res)=> {
+    await main();
+    return res.status(200).json({
+        status: true,
+        message: "succes create"
+    })
+})
+
+module.exports = router;

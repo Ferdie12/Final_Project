@@ -1,5 +1,5 @@
 ### post register
-POST http://localhost:3000/auth/login
+POST https://finalproject-develop.up.railway.app/auth/login
 Content-Type: application/json
 
 {
@@ -37,4 +37,4 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRp
 
 ###
 GET http://localhost:3000/admin/data/flight
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU0ODQxfQ.qaKEFuVeJlp9rFPWxO8fu_w6gOfQ9yl54ARlU022cA0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU5NzkzfQ.RRpAPWhZsBQEuyR2XPWYOxciiLjYPFC1DDo2Al7UjIw
