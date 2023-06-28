@@ -1,5 +1,6 @@
 const prisma = require("../config");
 const data_flight = require('./data/flight.json');
+const middleware = require('../../middleware/auth');
 
 async function createFlightsBatch(dataBatch) {
   await prisma.flight.createMany({ data: dataBatch });
@@ -26,7 +27,7 @@ async function main() {
 const express = require("express");
 const router = express.Router();
 
-router.get('/data/flight', async (req, res) => {
+router.get('/data/flight', middleware.auth, middleware.adminOnly,async (req, res) => {
   await main();
   return res.status(200).json({
     status: true,
