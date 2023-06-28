@@ -16,7 +16,7 @@ const {insertData} = require('../prisma/seed/index');
 
 router.use(user);
 router.use(ticket);
-router.use(data);
+router.use(middleware.auth, middleware.adminOnly,data);
 router.use("/flight", flightRoutes);
 router.use("/airline",airlineRoutes);
 router.use("/airplane", airplaneRoutes);
