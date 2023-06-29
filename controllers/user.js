@@ -408,10 +408,17 @@ module.exports = {
     updateProfile: async (req,res) => {
         try {
             const{id} = req.user;
+            const{name, email, phone}=req.body
 
-            if(req.body.name || req.body.email || req.body.phone){
-                const updated = await prisma.user.update({data:req.body, where: {id: id}});
-    
+            if(name || email || phone){
+
+                const checked = await prisma.user.findUnique({where: {id}});
+
+                const nama = name || checked.name;
+                const mail = email || checked.email;
+                const nomer = phone || checked.phone;
+
+                const updated = await prisma.user.update({data:{name: nama, email: mail, phone:nomer}, where: {id: id}});
                 if (!updated) {
                     return res.status(404).json({
                         status: false,

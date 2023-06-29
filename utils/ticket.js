@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, loadImage, registerFont } = require('canvas');
 const fs = require('fs');
 
 async function sendTicket(data) {
@@ -21,12 +21,15 @@ async function sendTicket(data) {
   ctx.fillStyle = 'black';
   ctx.textBaseline = 'middle';
 
+  // Mendaftarkan font yang diinginkan
+  registerFont('./utils/Roboto-Regular.ttf', { family: 'Roboto' });
+
   // Menggambar teks pada kanvas dengan data tiket
-  ctx.font = 'bold 30px Arial';
-  ctx.fillText(data.seatClass, 530, 80);
+  ctx.font = 'bold 30px Roboto';
+  ctx.fillText(data.seatClass, 530, 90);
   ctx.fillText(`${data.id} QX`, 50, 190);
   ctx.fillText(data.from, 50, 290);
-  ctx.fillText(data.to, 280, 317);
+  ctx.fillText(data.to, 280, 327);
 
   ctx.font = 'bold 40px Arial';
   ctx.fillText(data.time, 60, 440);
