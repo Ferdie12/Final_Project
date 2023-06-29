@@ -100,7 +100,8 @@ module.exports = {
     create: async (req,res,next) => {
         try {
             const {flight_id, data_passengers, passengers} = req.body;
-            const total_passengers = passengers.adult + passengers.child;
+            const {adult, child=0} = passengers
+            const total_passengers = adult + child;
 
             if(!flight_id || !data_passengers || !passengers){
                 return res.status(400).json({
@@ -113,6 +114,27 @@ module.exports = {
                 return res.status(400).json({
                     status: false,
                     message: "your not complete input data passengers"
+                })
+            }
+
+            
+            const checked = await prisma.order.findMany({
+                where: {
+                  flight_id,
+                  passenggers: {
+                    some: {
+                      fullname: {
+                        in: data_passengers.map(passenger => passenger.fullname)
+                      }
+                    }
+                  }
+                }
+              });
+
+            if(checked.length !==0){
+                return res.status(400).json({
+                    status: false,
+                    message: "you has been ordered this flight"
                 })
             }
 

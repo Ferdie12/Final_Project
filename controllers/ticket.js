@@ -38,7 +38,7 @@ module.exports = {
             if(!check){
                 return res.status(400).json({
                     status: false,
-                    message: "invalid request"
+                    message: "invalid generate ticket"
                 })
             }
 
@@ -56,7 +56,7 @@ module.exports = {
                 seatClass: check.flight.class,
                 from: check.flight.from.city,
                 to: check.flight.to.city,
-                id: check.id,
+                id: check.booking_code,
                 time: check.flight.departure_time,
                 date: check.flight.flight_date
             }
