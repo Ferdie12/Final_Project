@@ -60,7 +60,8 @@ module.exports = {
                 time: check.flight.departure_time,
                 date: check.flight.flight_date
             }
-            const stringFile = await sendTicket(data);
+            let stringFile = await sendTicket(data);
+            stringFile = stringFile.toString('base64');
 
                 const uploadFilePng = await imagekit.upload({
                     fileName: `Ticket_flight_${check.id}`,

@@ -126,7 +126,7 @@ module.exports = {
                 role: user.role
             };
 
-            const token = await jwt.sign(payload, JWT_SECRET_KEY);
+            const token = await jwt.sign(payload, JWT_SECRET_KEY, {expiresIn: "1d"});
 
             return res.status(200).json({
                 status: true,
