@@ -48,7 +48,7 @@ module.exports = {
             const mergedPenumpang = Object.assign({}, ...penumpang);
             const adult_price = adult * order.flight.price;
             const child_price = child * order.flight.price;
-            const tax = 0.1 * order.flight.price;
+            const tax = Math.floor(0.1 * order.flight.price);
             const total_price = order.total_passengers * order.flight.price + tax;
 
             console.log(mergedPenumpang);
