@@ -5,7 +5,7 @@ const imagekit = require('../utils/imagekit');
 module.exports = {
     getTicket: async (req,res) => {
         try {
-            const {order_id} = req.body
+            const {order_id} = req.query
 
             if(!order_id){
                 return res.status(400).json({
@@ -17,7 +17,7 @@ module.exports = {
             const check = await prisma.order.findFirst({
                 where: {
                     AND: [
-                    {id: order_id},
+                    {id: +order_id},
                     {user_id: req.user_id},
                     {status: "ISSUED"}
                     ]
