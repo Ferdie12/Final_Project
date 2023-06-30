@@ -632,7 +632,62 @@ paths:
             type: string
           in: query
           name: token
-  /update:
+  /user/avatar:
+    put:
+      summary: update avatar user
+      operationId: put-user-avatar
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      url_image:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: success
+                    data:
+                      url_image: 'https://ik.imagekit.io/kzirc2xqhj/01-BUGATTI-SOC2022_jXqzYRvSa.jpg'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: can't find user with id 4!
+                    data: 'null'
+      tags:
+        - user
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+      requestBody:
+        content: {}
+        description: ''
+  /user/update:
     put:
       summary: update user profile
       operationId: put-update
@@ -693,7 +748,6 @@ paths:
             type: string
           in: header
           name: authorization
-          description: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjg3ODcwMzkxfQ.IknwS1yoOk64ZMtCOpNxBgruqmd77kkXL2AHcmLtqTs
       requestBody:
         content:
           application/json:
@@ -705,6 +759,65 @@ paths:
               x-examples:
                 Example 1:
                   name: piter_aja
+    parameters: []
+  /user/get:
+    get:
+      summary: get user profile
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      avatar:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes get user
+                    data:
+                      name: ferdie_Aja
+                      email: ancikocii@gmail.com
+                      phone: '085278145715'
+                      avatar: 'https://ik.imagekit.io/kzirc2xqhj/DSC_0549_JAKWaHaeA.JPG'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: user_id is not valid
+      operationId: get-user-get
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
   /notif:
     get:
       summary: Get all notif
@@ -756,7 +869,6 @@ paths:
             type: string
           in: header
           name: authorization
-          description: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjg3ODcwMzkxfQ.IknwS1yoOk64ZMtCOpNxBgruqmd77kkXL2AHcmLtqTs
   '/notif{id}':
     parameters:
       - schema:
@@ -1459,65 +1571,6 @@ paths:
             type: string
           in: header
           name: authorization
-  /user/get:
-    get:
-      summary: get user profile
-      tags:
-        - user
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
-                  data:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      email:
-                        type: string
-                      phone:
-                        type: string
-                      avatar:
-                        type: string
-                x-examples:
-                  Example 1:
-                    status: true
-                    message: succes get user
-                    data:
-                      name: ferdie_Aja
-                      email: ancikocii@gmail.com
-                      phone: '085278145715'
-                      avatar: 'https://ik.imagekit.io/kzirc2xqhj/DSC_0549_JAKWaHaeA.JPG'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    status: false
-                    message: user_id is not valid
-      operationId: get-user-get
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: authorization
-          description: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoiYW5jaWtvY2lpQGdtYWlsLmNvbSIsInJvbGUiOiJidXllciIsImlhdCI6MTY4ODAzNTQ4NX0.BUlLVTtHrLavGbcoomNQbl3Dww3T5U5BoaH2R0_dpZM
   /ticket:
     get:
       summary: get ticket by order id
@@ -1568,7 +1621,6 @@ paths:
             type: string
           in: query
           name: order_id
-          description: '5'
 components:
   schemas: {}
   securitySchemes: {}
