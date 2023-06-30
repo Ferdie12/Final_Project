@@ -1459,8 +1459,119 @@ paths:
             type: string
           in: header
           name: authorization
+  /user/get:
+    get:
+      summary: get user profile
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      avatar:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes get user
+                    data:
+                      name: ferdie_Aja
+                      email: ancikocii@gmail.com
+                      phone: '085278145715'
+                      avatar: 'https://ik.imagekit.io/kzirc2xqhj/DSC_0549_JAKWaHaeA.JPG'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: user_id is not valid
+      operationId: get-user-get
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          description: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoiYW5jaWtvY2lpQGdtYWlsLmNvbSIsInJvbGUiOiJidXllciIsImlhdCI6MTY4ODAzNTQ4NX0.BUlLVTtHrLavGbcoomNQbl3Dww3T5U5BoaH2R0_dpZM
+  /ticket:
+    get:
+      summary: get ticket by order id
+      tags:
+        - ticket
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes generate ticket
+                    data: 'https://ik.imagekit.io/kzirc2xqhj/Ticket_flight_5_RURQt1GT-'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you must send order_id to generate ticket
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: invalid generate ticket
+      operationId: get-ticket
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: order_id
+          description: '5'
 components:
   schemas: {}
+  securitySchemes: {}
 tags:
   - name: airline
   - name: airplane
@@ -1468,4 +1579,5 @@ tags:
   - name: notification
   - name: order
   - name: payment
+  - name: ticket
   - name: user
