@@ -299,8 +299,8 @@ module.exports = {
                 id: user.id
             };
 
-            const url = `${req.protocol}://${req.get('host')}/reset`;
             const token = await jwt.sign(payload, JWT_SECRET_KEY);
+            const url = `https://quicktix-pi.vercel.app/reset-password?token=${token}`;
             const html = await nodemailer.getHtml('email/resetpassword.ejs', {name: user.name, url});
             nodemailer.sendMail(user.email, 'Reset password request', html);
 

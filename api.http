@@ -21,20 +21,16 @@ Content-Type: application/json
 
 {
     "departure_airport": "Jakarta",
-    "arrival_airport": "Banda Aceh",
+    "arrival_airport": "Pekanbaru",
     "date": "2023-07-16",
     "seat_type": "Economy",
     "adult": 1
 }
 
 ###
-post http://localhost:3000/ticket
+get http://localhost:3000/ticket?order_id=8
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4MDE0OTk4fQ.7AASxxeJlvHqFHPHe_nWfs39zK1DNyI2EOrEVYfhCFk
-
-{
-    "order_id": 3
-}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4MDQxODk2LCJleHAiOjE2ODgxMjgyOTZ9.NeS4jQiy4hLbVbgTTM6okVZ0mplXgwtqOhRdLWCi4k0
 
 ###
 GET http://localhost:3000/admin/data/flight
