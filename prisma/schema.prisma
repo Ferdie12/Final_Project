@@ -88,6 +88,7 @@ model Flight{
 model Payment_type {
   id Int @id @default(autoincrement())
   name String
+  logo String?
   order Order[]
 
   @@map("payment_type")

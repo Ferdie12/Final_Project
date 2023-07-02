@@ -306,8 +306,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'we will send a email if the email is registered!',
-                data: token
+                message: 'we will send a email if the email is registered!'
             });
         } catch (error) {
             throw error
