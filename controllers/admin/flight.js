@@ -19,7 +19,7 @@ module.exports = {
         let {sort_by = "departure_time", sort_type = "asc"} = req.query;
   
         let {departure_airport, arrival_airport, date, seat_type, adult, child=0, baby=0} = req.body;
-        if(!departure_airport || !arrival_airport || !date || !seat_type) {
+        if(!departure_airport || !arrival_airport || !date || !seat_type|| !adult) {
           return res.status(400).json({
             status: false,
             message: "your not input value on filter",
