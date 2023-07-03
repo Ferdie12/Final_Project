@@ -1,0 +1,1635 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 2z70y2h7ginzk
+info:
+  title: Quicktix
+  version: '1.0'
+  contact:
+    name: Piter Tanuwijaya
+    email: pitertan0120@gmail.com
+servers:
+  - url: 'http://finalproject-develop.up.railway.app'
+paths:
+  /airline:
+    get:
+      summary: Get All Airlines
+      tags:
+        - airline
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        airline_code:
+                          type: string
+                        name:
+                          type: string
+                        logo:
+                          type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Get All airlines succes
+                    data:
+                      - airline_code: ID
+                        name: Batik Air
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/12/13/1576208649600-12471f9b7ffa159361f7bbbfb63065ee.png?tr=q-75'
+                      - airline_code: QG
+                        name: Citilink
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png?tr=q-75'
+                      - airline_code: GA
+                        name: Garuda Indonesia
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/12/12/1576140134467-906ded3638e9045d664adc40caa8ec47.png?tr=q-75'
+      operationId: get-airline
+  '/airline/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Airline by id
+      tags:
+        - airline
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      airline_code:
+                        type: string
+                      name:
+                        type: string
+                      logo:
+                        type: string
+                      airplane:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            airplane_code:
+                              type: string
+                            model:
+                              type: string
+                            airline_code_fk:
+                              type: string
+                            seat_layout:
+                              type: string
+                            seat_pitch:
+                              type: string
+                            seat_type:
+                              type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Get By Id airlines succes
+                    data:
+                      airline_code: ID
+                      name: Batik Air
+                      logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/12/13/1576208649600-12471f9b7ffa159361f7bbbfb63065ee.png?tr=q-75'
+                      airplane:
+                        - id: 7
+                          airplane_code: AIRBUS-A320-32
+                          model: Airbus A320
+                          airline_code_fk: ID
+                          seat_layout: 3-3
+                          seat_pitch: '32'
+                          seat_type: ABOVE_AVERAGE_LEGROOM
+                        - id: 8
+                          airplane_code: BOEING-737-32
+                          model: Boeing 737
+                          airline_code_fk: ID
+                          seat_layout: 3-3
+                          seat_pitch: '32'
+                          seat_type: ABOVE_AVERAGE_LEGROOM
+                        - id: 9
+                          airplane_code: BOEING-737-800-32
+                          model: Boeing 737 Next Generation
+                          airline_code_fk: ID
+                          seat_layout: 3-3
+                          seat_pitch: '32'
+                          seat_type: ABOVE_AVERAGE_LEGROOM
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: cannot get airline with airline_code not found
+      operationId: get-airline-id
+  /airplane:
+    get:
+      summary: Get all airplane
+      tags:
+        - airplane
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        airplane_code:
+                          type: string
+                        model:
+                          type: string
+                        airline_code_fk:
+                          type: string
+                        seat_layout:
+                          type: string
+                        seat_pitch:
+                          type: string
+                        seat_type:
+                          type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Get All airplanes succes
+                    data:
+                      - id: 1
+                        airplane_code: AIRBUS-A320-32
+                        model: Airbus A320
+                        airline_code_fk: 8B
+                        seat_layout: 3-3
+                        seat_pitch: '32'
+                        seat_type: STANDARD_LEGROOM
+                      - id: 2
+                        airplane_code: COMAC-ARJ21-31
+                        model: COMAC ARJ21
+                        airline_code_fk: 8B
+                        seat_layout: 2-3
+                        seat_pitch: '31'
+                        seat_type: STANDARD_LEGROOM
+                      - id: 3
+                        airplane_code: AIRBUS-A332-31
+                        model: Airbus A332
+                        airline_code_fk: GA
+                        seat_layout: 3-3
+                        seat_pitch: '31'
+                        seat_type: ABOVE_AVERAGE_LEGROOM
+      operationId: get-airplane
+  '/airplane/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get airplane by id
+      tags:
+        - airplane
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      airplane_code:
+                        type: string
+                      model:
+                        type: string
+                      airline_code_fk:
+                        type: string
+                      seat_layout:
+                        type: string
+                      seat_pitch:
+                        type: string
+                      seat_type:
+                        type: string
+                      airline:
+                        type: object
+                        properties:
+                          airline_code:
+                            type: string
+                          name:
+                            type: string
+                          logo:
+                            type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Get By Id airplanes succes
+                    data:
+                      id: 1
+                      airplane_code: AIRBUS-A320-32
+                      model: Airbus A320
+                      airline_code_fk: 8B
+                      seat_layout: 3-3
+                      seat_pitch: '32'
+                      seat_type: STANDARD_LEGROOM
+                      airline:
+                        airline_code: 8B
+                        name: TransNusa
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2022/05/05/1651724293186-ee122b2d6b66f97e7262b4e2db977e1b.png?tr=q-75'
+      operationId: get-airplane-id
+  /auth/register:
+    post:
+      summary: Register user
+      operationId: post-auth-register
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: you must to activation your accout
+                    data: 3
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                confirmpassword:
+                  type: string
+                phone:
+                  type: string
+              x-examples:
+                Example 1:
+                  name: ferdie
+                  email: kasemenoo@gmail.com
+                  password: Ferdie123
+                  confirmpassword: Ferdie123
+                  phone: '085278145715'
+  /validasi:
+    post:
+      summary: Account activation
+      operationId: post-validasi
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: 'activation succes, your account succes registered'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: you input wrong otp
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you must input iser_id and otp
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: invalid request
+                Example 3:
+                  value:
+                    status: false
+                    message: activation failed
+          headers: {}
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                otp:
+                  type: integer
+              x-examples:
+                Example 1:
+                  user_id: 4
+                  otp: 430812
+  /sendotp:
+    get:
+      summary: Send OTP to email
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: we send new otp to activation your email
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you must insert user_id
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: invalid request
+      operationId: get-sendotp?user_id=4
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: user_id
+    parameters: []
+  /auth/login:
+    post:
+      summary: Login user
+      operationId: post-auth-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: login success!
+                    data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6InBpdGVyIiwiZW1haWwiOiJwaXRlcnRhbjAxMjBAZ21haWwuY29tIiwicm9sZSI6ImJ1eWVyIiwiaWF0IjoxNjg3ODY5Njg1fQ.rytkraE2EveEClJJcHiRG1tVylxjKxMvrlha1BSITSk
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: email or password is not valid!
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: your account has not been activated!
+                Example 3:
+                  value:
+                    status: false
+                    message: 'your accont is registered with google oauth, you need to login with google oauth2!'
+                Example 4:
+                  value:
+                    status: false
+                    message: email or password is not valid!
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              x-examples:
+                Example 1:
+                  email: pitertan0120@gmail.com
+                  password: Piter123
+  /forgotpassword:
+    post:
+      summary: Forgot password user
+      operationId: post-forgotpassword
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: we will send a email if the email is registered!
+                    data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjg3ODcwMzkxfQ.IknwS1yoOk64ZMtCOpNxBgruqmd77kkXL2AHcmLtqTs
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you must input email on form
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: email is not registered
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              x-examples:
+                Example 1:
+                  email: pitertan0120@gmail.com
+  /resetpassword:
+    parameters: []
+    post:
+      summary: Reset password user
+      operationId: post-resetpassword-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: reset password success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: credential is not valid
+              examples:
+                Example 2:
+                  value:
+                    message: password and confirm password is not match
+                Example 3:
+                  value:
+                    message: fail update new passport
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                new_password:
+                  type: string
+                confirm_new_password:
+                  type: string
+              x-examples:
+                Example 1:
+                  new_password: Piter321
+                  confirm_new_password: Piter321
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: token
+  /user/avatar:
+    put:
+      summary: update avatar user
+      operationId: put-user-avatar
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      url_image:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: success
+                    data:
+                      url_image: 'https://ik.imagekit.io/kzirc2xqhj/01-BUGATTI-SOC2022_jXqzYRvSa.jpg'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: can't find user with id 4!
+                    data: 'null'
+      tags:
+        - user
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+      requestBody:
+        content: {}
+        description: ''
+  /user/update:
+    put:
+      summary: update user profile
+      operationId: put-update
+      responses:
+        '201':
+          description: Created
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: updated success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: 'must to input one value '
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: can't find user with id 4!
+                    data: 'null'
+      tags:
+        - user
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              x-examples:
+                Example 1:
+                  name: piter_aja
+    parameters: []
+  /user/get:
+    get:
+      summary: get user profile
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      avatar:
+                        type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes get user
+                    data:
+                      name: ferdie_Aja
+                      email: ancikocii@gmail.com
+                      phone: '085278145715'
+                      avatar: 'https://ik.imagekit.io/kzirc2xqhj/DSC_0549_JAKWaHaeA.JPG'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: user_id is not valid
+      operationId: get-user-get
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  /notif:
+    get:
+      summary: Get all notif
+      tags:
+        - notification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        time:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        isread:
+                          type: boolean
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: Get All notifications succes
+                    data:
+                      - id: 1
+                        user_id: 4
+                        time: '2023-06-27T00:00:00.000Z'
+                        title: Welcome To Quicktix
+                        description: your account succes registered in quicktix
+                        isread: false
+      operationId: get-notif
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  '/notif{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Read notif
+      tags:
+        - notification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      time:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isread:
+                        type: boolean
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: read notifications succes
+                    data:
+                      id: 1
+                      user_id: 4
+                      time: '2023-06-27T00:00:00.000Z'
+                      title: Welcome To Quicktix
+                      description: your account succes registered in quicktix
+                      isread: true
+      operationId: get-notif-id
+  /flight/search:
+    post:
+      summary: Search flight
+      operationId: post-flight-search
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  adult:
+                    type: integer
+                  child:
+                    type: integer
+                  count:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      departure_airport:
+                        type: object
+                        properties:
+                          departure_time:
+                            type: string
+                          date:
+                            type: string
+                          departure_airport:
+                            type: string
+                      flight:
+                        type: object
+                        properties:
+                          airline_name:
+                            type: string
+                          airline_class:
+                            type: string
+                          airplane_code:
+                            type: string
+                          logo:
+                            type: string
+                          baggage:
+                            type: integer
+                          cabin_baggage:
+                            type: integer
+                      arrival_airport:
+                        type: object
+                        properties:
+                          arrival_time:
+                            type: string
+                          date:
+                            type: string
+                          arrival_airport:
+                            type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: success search flight
+                    adult: 1
+                    child: 1
+                    count: 1
+                    data:
+                      departure_airport:
+                        departure_time: '00:10'
+                        date: '2023-06-01'
+                        departure_airport: Soekarno Hatta International Airport
+                      flight:
+                        airline_name: Batik Air
+                        airline_class: ECONOMY
+                        airplane_code: AIRBUS-A320-32
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/12/13/1576208649600-12471f9b7ffa159361f7bbbfb63065ee.png?tr=q-75'
+                        baggage: 20
+                        cabin_baggage: 7
+                      arrival_airport:
+                        arrival_time: '03:30'
+                        date: '2023-06-01'
+                        arrival_airport: Hasanuddin
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: your not input value on filter
+                    data: 'null'
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: departure airport not found
+                    data: 'null'
+                Example 3:
+                  value:
+                    status: false
+                    message: departure airport not found
+                    data: 'null'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+        - schema:
+            type: string
+          in: query
+          name: sort_by
+        - schema:
+            type: string
+          in: query
+          name: sort_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      tags:
+        - flight
+  '/flight/price/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get flight's price by id
+      tags:
+        - flight
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      departure_airport:
+                        type: object
+                        properties:
+                          departure_time:
+                            type: string
+                          date:
+                            type: string
+                          departure_airport:
+                            type: string
+                      flight:
+                        type: object
+                        properties:
+                          airline_name:
+                            type: string
+                          airline_class:
+                            type: string
+                          airplane_code:
+                            type: string
+                          logo:
+                            type: string
+                          baggage:
+                            type: integer
+                          cabin_baggage:
+                            type: integer
+                      arrival_airport:
+                        type: object
+                        properties:
+                          arrival_time:
+                            type: string
+                          date:
+                            type: string
+                          arrival_airport:
+                            type: string
+                      info_price:
+                        type: object
+                        properties:
+                          adult_total:
+                            type: integer
+                          child_total:
+                            type: integer
+                          adult_price:
+                            type: integer
+                          child_price:
+                            type: integer
+                          tax:
+                            type: integer
+                          total_price:
+                            type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: success
+                    data:
+                      departure_airport:
+                        departure_time: '16:55'
+                        date: '2023-06-18'
+                        departure_airport: Halim Perdanakusuma International Airport
+                      flight:
+                        airline_name: Citilink
+                        airline_class: ECONOMY
+                        airplane_code: AIRBUS-A320-32
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png?tr=q-75'
+                        baggage: 20
+                        cabin_baggage: 7
+                      arrival_airport:
+                        arrival_time: '18:20'
+                        date: '2023-06-18'
+                        arrival_airport: Juanda International Airport
+                      info_price:
+                        adult_total: 1
+                        child_total: 1
+                        adult_price: 724835
+                        child_price: 724835
+                        tax: 72483
+                        total_price: 1522153
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: invalid id
+      operationId: get-flight-price-id
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: adult
+        - schema:
+            type: string
+          in: query
+          name: child
+  /order/create:
+    post:
+      summary: ''
+      operationId: post-order-create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      order_id:
+                        type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes create
+                    data:
+                      order_id: 2
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: input data not valid
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: your not complete input data passengers
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you not input valid value
+                    data: 'null'
+      tags:
+        - order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                flight_id:
+                  type: integer
+                data_passengers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      fullname:
+                        type: string
+                      gender:
+                        type: string
+                      birthday:
+                        type: string
+                      person:
+                        type: string
+                      nationality:
+                        type: string
+                      no_ktp:
+                        type: string
+                passengers:
+                  type: object
+                  properties:
+                    adult:
+                      type: integer
+                    child:
+                      type: integer
+              x-examples:
+                Example 1:
+                  flight_id: 12446
+                  data_passengers:
+                    - fullname: ferdie5
+                      gender: laki-laki
+                      birthday: 16-03-2002
+                      person: adult
+                      nationality: indonesia
+                      no_ktp: '0827129'
+                    - fullname: adi5
+                      gender: laki-laki
+                      birthday: 16-03-2002
+                      person: child
+                      nationality: indonesia
+                      no_ktp: '0827129'
+                  passengers:
+                    adult: 1
+                    child: 1
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  /payment:
+    get:
+      summary: Get all payment
+      tags:
+        - payment
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes getAll Payment
+                    data:
+                      - id: 1
+                        name: gopay
+      operationId: get-payment
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  '/order/one/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get order by id
+      tags:
+        - order
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  total_passengers:
+                    type: integer
+                  data:
+                    type: object
+                    properties:
+                      booking_code:
+                        type: string
+                      info_departure_airport:
+                        type: object
+                        properties:
+                          departure_time:
+                            type: string
+                          date:
+                            type: string
+                          departure_airport:
+                            type: string
+                      info_flight:
+                        type: object
+                        properties:
+                          airline_name:
+                            type: string
+                          class:
+                            type: string
+                          airplane_code:
+                            type: string
+                          logo:
+                            type: string
+                          baggage:
+                            type: integer
+                          cabin_baggage:
+                            type: integer
+                      info_arrival_airport:
+                        type: object
+                        properties:
+                          arrival_time:
+                            type: string
+                          date:
+                            type: string
+                          arrival_airport:
+                            type: string
+                      info_price:
+                        type: object
+                        properties:
+                          adult_total:
+                            type: integer
+                          child_total:
+                            type: integer
+                          adult_price:
+                            type: integer
+                          child_price:
+                            type: integer
+                          tax:
+                            type: integer
+                          total_price:
+                            type: integer
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes
+                    total_passengers: 2
+                    data:
+                      booking_code: f4d4a23b84
+                      info_departure_airport:
+                        departure_time: '13:45'
+                        date: '2023-06-18'
+                        departure_airport: Halim Perdanakusuma International Airport
+                      info_flight:
+                        airline_name: Citilink
+                        class: ECONOMY
+                        airplane_code: ATR-72-28
+                        logo: 'https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png?tr=q-75'
+                        baggage: 10
+                        cabin_baggage: 7
+                      info_arrival_airport:
+                        arrival_time: '15:15'
+                        date: '2023-06-18'
+                        arrival_airport: Adi Sutjipto
+                      info_price:
+                        adult_total: 1
+                        child_total: 1
+                        adult_price: 1642875
+                        child_price: 1642875
+                        tax: 164287
+                        total_price: 3450037
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: invalid orders
+      operationId: get-order-one-id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  /payment/checkout:
+    post:
+      summary: Checkout payment
+      operationId: post-payment-checkout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes payment
+                    data: ISSUED
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: invalid order_id and payment_id
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: orders in user not found
+                Example 3:
+                  value:
+                    status: false
+                    message: orders has been paid
+                Example 4:
+                  value:
+                    status: false
+                    message: your order has benn expired
+      tags:
+        - payment
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: integer
+                payment_id:
+                  type: integer
+              x-examples:
+                Example 1:
+                  order_id: 5
+                  payment_id: 1
+  /order:
+    get:
+      summary: Get all order
+      tags:
+        - order
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes get all order
+                    data: []
+      operationId: get-order
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+  /ticket:
+    get:
+      summary: get ticket by order id
+      tags:
+        - ticket
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: true
+                    message: succes generate ticket
+                    data: 'https://ik.imagekit.io/kzirc2xqhj/Ticket_flight_5_RURQt1GT-'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    status: false
+                    message: you must send order_id to generate ticket
+              examples:
+                Example 2:
+                  value:
+                    status: false
+                    message: invalid generate ticket
+      operationId: get-ticket
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: order_id
+components:
+  schemas: {}
+  securitySchemes: {}
+tags:
+  - name: airline
+  - name: airplane
+  - name: flight
+  - name: notification
+  - name: order
+  - name: payment
+  - name: ticket
+  - name: user

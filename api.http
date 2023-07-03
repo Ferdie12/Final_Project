@@ -1,0 +1,37 @@
+### post register
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "maulanaferdie1@gmail.com",
+    "password": "123"
+}
+
+### activation
+POST http://localhost:3000/validasi
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "otp": 123456
+}
+### post search result
+POST  http://localhost:3000/flight/search
+Content-Type: application/json
+
+{
+    "departure_airport": "Jakarta",
+    "arrival_airport": "Pekanbaru",
+    "date": "2023-07-16",
+    "seat_type": "Economy",
+    "adult": 1
+}
+
+###
+get http://localhost:3000/ticket?order_id=8
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4MDQxODk2LCJleHAiOjE2ODgxMjgyOTZ9.NeS4jQiy4hLbVbgTTM6okVZ0mplXgwtqOhRdLWCi4k0
+
+###
+GET http://localhost:3000/admin/data/flight
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU5NzkzfQ.RRpAPWhZsBQEuyR2XPWYOxciiLjYPFC1DDo2Al7UjIw

@@ -1,0 +1,47 @@
+[
+  {
+    "airline_code": "ID",
+    "name": "Batik Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/13/1576208649600-12471f9b7ffa159361f7bbbfb63065ee.png?tr=q-75"
+  },
+  {
+    "airline_code": "QG",
+    "name": "Citilink",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png?tr=q-75"
+  },
+  {
+    "airline_code": "GA",
+    "name": "Garuda Indonesia",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/12/1576140134467-906ded3638e9045d664adc40caa8ec47.png?tr=q-75"
+  },
+  {
+    "airline_code": "JT",
+    "name": "Lion Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450349861201-09ec8f298222a73d66e8e96aa3b918f0.png?tr=q-75"
+  },
+  {
+    "airline_code": "NM",
+    "name": "NAM Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450350497772-d343e9b6823d18054324b818b999c394.png?tr=q-75"
+  },
+  {
+    "airline_code": "SJ",
+    "name": "Sriwijaya Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/12/1576139484141-e3bb88cae8d9f1f89d9b3d1b8788c450.png?tr=q-75"
+  },
+  {
+    "airline_code": "8B",
+    "name": "TransNusa",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2022/05/05/1651724293186-ee122b2d6b66f97e7262b4e2db977e1b.png?tr=q-75"
+  },
+  {
+    "airline_code": "IL",
+    "name": "Trigana Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2016/12/27/1482845148999-c4273ca0398aa949d7c6d23cee5ecb5a.png?tr=q-75"
+  },
+  {
+    "airline_code": "IW",
+    "name": "Wings Air",
+    "logo": "https://ik.imagekit.io/tvlk/image/imageResource/2015/12/17/1450349805026-5fecb4ceb5f79e38f2a5ae50f33b813e.png?tr=q-75"
+  }
+]

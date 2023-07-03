@@ -13,10 +13,135 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   name String
-  email String
-  password String
+  email String @unique
+  password String?
+  user_type String
   avatar String?
-  phone BigInt
+  phone String?
+  otp Int
   role String
   activation Boolean
+  notif Notification[]
+  orders Order[]
+
+  @@map("users")
+}
+
+model Airport{
+  airport_code String @id
+  name String
+  city String
+  country String
+  flight_from Flight[] @relation("from_airport")
+  flight_to Flight[] @relation("to_airport")
+
+  @@map("airport")
+}
+
+model Airline{
+  airline_code String @id
+  name String
+  logo String
+  airplane Airplane[]
+  flight Flight[]
+  @@map("airline")
+}
+
+model Airplane{
+ id Int @id 
+ airplane_code String
+ model String
+ airline_code_fk String
+ seat_layout String
+ seat_pitch String
+ seat_type String
+ airline Airline @relation(fields: [airline_code_fk], references: [airline_code])
+ flight Flight[]
+
+ @@map("airplane")
+}
+
+model Flight{
+  id Int @id @default(autoincrement())
+  departure_airport String
+  airplane_id Int
+  airline_code String
+  arrival_airport String
+  class String
+  price Int
+  flight_date String
+  departure_time String
+  arrival_time String
+  flight_duration String
+  free_baggage Int
+  cabin_baggage Int
+  capacity Int
+  airplane Airplane @relation(fields: [airplane_id], references: [id])
+  airline Airline @relation(fields: [airline_code], references: [airline_code])
+  from Airport @relation("from_airport", fields: [departure_airport], references: [airport_code])
+  to Airport @relation("to_airport", fields: [arrival_airport], references: [airport_code])
+  orders Order[]
+
+  @@map("flight")
+}
+
+model Payment_type {
+  id Int @id @default(autoincrement())
+  name String
+  logo String?
+  order Order[]
+
+  @@map("payment_type")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  user_id Int
+  flight_id Int
+  payment_type_id Int
+  booking_code String
+  total_passengers Int
+  total_price Int
+  status String
+  exp DateTime @db.Date
+  user User @relation(fields: [user_id], references: [id])
+  flight Flight @relation(fields: [flight_id], references: [id])
+  payment Payment_type @relation(fields: [payment_type_id], references: [id])
+  passenggers Passenger[]
+  ticket Ticket?
+
+  @@map("orders")
+}
+
+model Passenger {
+ id Int @id @default(autoincrement())
+ order_id Int
+ fullname String 
+ person String
+ gender String 
+ birthday String 
+ nationality String 
+ no_ktp String?
+ order Order @relation(fields: [order_id], references: [id])
+
+ @@map("passengers")
+}
+
+model Notification {
+  id Int @id @default(autoincrement())
+  user_id Int
+  time DateTime @db.Date @default(now())
+  title String
+  description String
+  isread Boolean
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("notification")
+}
+
+model Ticket {
+  id Int @id @default(autoincrement())
+  order_id Int @unique
+  url String
+  order Order @relation(fields: [order_id], references: [id])
 }
