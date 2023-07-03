@@ -6,7 +6,7 @@ BEJS X FEJS-2
 - Piter Tanuwijaya
 - Farizal Justian Usman
 
-Link PPT : https://docs.google.com/presentation/d/1TDR_bQI5vbu_8bfMhW82M5MxIlqw-rTyxjHLU-xIxz4/edit?usp=sharing
+Link PPT : https://www.canva.com/design/DAFnl8l9I-s/wP0DoI0kL5eKpCemSBXhXg/edit?utm_content=DAFnl8l9I-s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 Link Railway : finalproject-develop.up.railway.app
 
