@@ -8,7 +8,7 @@ BEJS X FEJS-2
 
 Link PPT : https://www.canva.com/design/DAFnl8l9I-s/wP0DoI0kL5eKpCemSBXhXg/edit?utm_content=DAFnl8l9I-s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-Link Railway : finalproject-develop.up.railway.app
+Link Railway : https://finalproject-develop.up.railway.app
 
 Link Dokumentasi :
     - Postman : https://documenter.getpostman.com/view/28211416/2s93z88iyN
