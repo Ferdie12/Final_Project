@@ -1,5 +1,6 @@
 const prisma = require("../prisma/config");
 const sendTicket = require('../utils/ticket.js');
+const qr = require('qr-image');
 const imagekit = require('../utils/imagekit');
 
 module.exports = {
@@ -48,7 +49,10 @@ module.exports = {
                 return res.status(200).json({
                     status: true,
                     message: "succes generate ticket",
-                    data: tes.url
+                    data: {
+                        image: tes.url,
+                        qr: tes.qr
+                    }
                 })
             }
 
@@ -67,13 +71,24 @@ module.exports = {
                     fileName: `Ticket_flight_${check.id}`,
                     file: stringFile
                 });
+            
+            const qrBuffer = await qr.imageSync(uploadFilePng.url, 'L');
+            const qrString = qrBuffer.toString('base64');
+    
+                const qrFile = await imagekit.upload({
+                    fileName: `qr_${check.id}`,
+                    file: qrString
+                });
 
-            const ticket = await prisma.ticket.create({data: {order_id: check.id, url: uploadFilePng.url}});
+            const ticket = await prisma.ticket.create({data: {order_id: check.id, url: uploadFilePng.url, qr:qrFile.url}});
 
             return res.status(200).json({
                 status: true,
                 message: "succes generate ticket",
-                data: ticket.url
+                data: {
+                    image: ticket.url,
+                    qr: ticket.qr
+                }
             })
         } catch (error) {
             throw error
