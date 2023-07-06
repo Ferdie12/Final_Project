@@ -14,7 +14,7 @@ router.get('/tes', middleware.auth, (req,res) =>{
 router.post('/auth/register', user.register);
 router.post('/validasi', user.activation);
 router.get('/sendotp', user.sendOtp);
-router.get('/auth/login/google', user.google_login);
+router.post('/auth/login/google', user.google_login);
 router.post('/auth/login', user.login);
 router.post('/forgotpassword', user.forgotPassword);
 router.post('/resetpassword', user.resetPassword);

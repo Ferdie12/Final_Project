@@ -1,29 +1,34 @@
 [
     {
-        "name": "Gopay"
+        "name": "Gopay",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/68747470733a2f2f6c656c6f67616d612e676f2d6a656b2e636f6d2f636f6d706f6e656e742f686f77746f2f686f77746f5f73746570732f676f7061792d312e6a7067-removebg-preview_tO-pUtF-E.png"
     },
     {
-        "name": "ShopeePay"
+        "name": "ShopeePay",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/ShopeePay-logo-removebg-preview_1-D1yPQM2.png"
     },
     {
-        "name": "OVO"
+        "name": "OVO",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/OVO-Logo-Vector-removebg-preview_GkYaWbXSV.png"
     },
     {
-        "name": "DANA"
+        "name": "DANA",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/md-5375a80106119ac97bd185b6ee5b4b0155-removebg-preview_KEiy8Voex.png"
     },
     {
-        "name": "BRI Virtual Acount"
+        "name": "BRI Virtual Acount",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/BRIVA-BRI-removebg-preview_Vg_oFyJIK.png"
     },
     {
-        "name": "BCA Virtual Acount"
+        "name": "BCA Virtual Acount",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/download-removebg-preview_IZvoMvKlY.png"
     },
     {
-        "name": "BNI Virtual Acount"
+        "name": "BNI Virtual Acount",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/1646109122bni_va_kotak-removebg-preview__n_l15HZm.png"
     },
     {
-        "name": "BTN Virtual Acount"
-    },
-    {
-        "name": "Mandiri Virtual Acount"
+        "name": "Mandiri Virtual Acount",
+        "logo": "https://ik.imagekit.io/kzirc2xqhj/1646110410mandiri_va-removebg-preview_e5K1UfFlO.png"
     }
 ]

@@ -5,13 +5,14 @@ module.exports = {
         try {
             const airports = await prisma.airport.findMany({
                 select: {
-                 city: true
+                  city: true,
                 },
                 orderBy: [
                   {
-                    city: "asc"
-                  }
+                    city: "asc",
+                  },
                 ],
+                distinct: ['city']
               });
             
             const result = airports.map(airport => ({

@@ -3,9 +3,10 @@ const nodemailer = require('../utils/nodemailer');
 const bcryp = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET_KEY} = process.env;
-const oauth2 = require('../utils/oauth');
+// const oauth2 = require('../utils/oauth');
 const imagekit = require('../utils/imagekit');
 const notification = require('../utils/notif');
+const axios = require('axios');
 
 module.exports = {
     register: async (req, res) => {
@@ -23,7 +24,7 @@ module.exports = {
             const hashPassword = await bcryp.hash(password, 10);
 
             if(email == process.env.ADMIN_1 || email == process.env.ADMIN_2 ||email == process.env.ADMIN_3){
-                const user = await prisma.user.create({
+                await prisma.user.create({
                     data: {
                         name,
                         email,
@@ -53,7 +54,7 @@ module.exports = {
             if (exist) {
                 return res.status(400).json({
                     status: false,
-                    message: 'email already used!'
+                    message: 'email already registered'
                 });
             }
 
@@ -107,7 +108,7 @@ module.exports = {
             if (user.user_type == 'google' && !user.password) {
                 return res.status(400).json({
                     status: false,
-                    message: 'your accont is registered with google oauth, you need to login with google oauth2!',
+                    message: 'your accont is registered with google oauth, you need to login with google',
                 });
             }
 
@@ -141,17 +142,18 @@ module.exports = {
 
     google_login: async (req, res) => {
         try {
-            const {code} = req.query;
-        if (!code) {
-            const googleLoginUrl = oauth2.generateAuthUrl();
-            return res.redirect(googleLoginUrl);
-        }
+            const { access_token } = req.body;
 
-        await oauth2.setCreadentials(code);
-        const {data} = await oauth2.getUserData();
-        console.log(data);
+            if (!access_token) {
+              return res.status(400).json({ message: "Access Token is required" });
+            }
+      
+            const response = await axios.get(
+              `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`
+            );
+            const { name, email } = response.data;
 
-        let user = await prisma.user.findUnique({where: {email: data.email}});
+        let user = await prisma.user.findUnique({where: {email: email}});
         if(user){
             return res.status(400).json({
                 status: false,
@@ -160,11 +162,12 @@ module.exports = {
         }else if (!user) {
             user = await prisma.user.create({
                 data: {
-                    name: data.name,
-                    email: data.email,
+                    name,
+                    email,
                     user_type: 'google',
                     role: "buyer",
-                    activation: true
+                    activation: true,
+                    otp: 123456
                 }
             });
         }

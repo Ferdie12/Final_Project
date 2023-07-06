@@ -2,105 +2,101 @@ const prisma = require('../prisma/config');
 const crypto = require('crypto');
 
 module.exports = {
-    getAll: async (req,res,next) => {
+    getAll: async (req, res, next) => {
         try {
-            const orders = await prisma.order.findMany({
-                where: {user_id: req.user.id},
-                include: {
-                    flight: {
-                        select: {
-                        departure_time: true,
-                        arrival_time: true,
-                        class: true,
-                        price: true,
-                        flight_duration: true,
-                        flight_date: true,
-                        airplane: true,
-                        airline: true,
-                        from: true,
-                        to: true
-                        }
-                    }
+          const orders = await prisma.order.findMany({
+            where: { user_id: req.user.id },
+            include: {
+              flight: {
+                select: {
+                  departure_time: true,
+                  arrival_time: true,
+                  class: true,
+                  price: true,
+                  flight_duration: true,
+                  flight_date: true,
+                  airplane: true,
+                  airline: true,
+                  from: true,
+                  to: true
                 }
-            });
-
-            const result = await Promise.all(orders.map(async (order) => {
-                const passengers = await prisma.passenger.findMany({where: {order_id: order.id}, select:{person:true, fullname:true}});
-
-            let adult = 0;
-            let child = 0;
-            const penumpang = passengers.map((passenger) => {
-                const passengerName = passenger.person === 'adult' ? passenger.fullname : passenger.fullname;
-                
-                if (passenger.person === 'adult') {
-                adult++;
-                return {
-                    [`penumpang_dewasa_${adult}`]: passengerName
-                };
-                } else {
-                child++;
-                return {
-                    [`penumpang_anak_${child}`]: passengerName
-                };
-                }
-            });
-
-            const mergedPenumpang = Object.assign({}, ...penumpang);
-            const adult_price = adult * order.flight.price;
-            const child_price = child * order.flight.price;
-            const tax = Math.floor(0.1 * order.flight.price);
-            const total_price = order.total_passengers * order.flight.price + tax;
-
-            console.log(mergedPenumpang);
-
-            return {
+              }
+            }
+          });
+    
+          const result = await Promise.all(
+            orders.map(async (order) => {
+              const passengers = await prisma.passenger.findMany({
+                where: { order_id: order.id },
+                select: { person: true, fullname: true }
+              });
+    
+              let adult = 0;
+              let child = 0;
+              const penumpangDewasa = passengers
+                .filter((passenger) => passenger.person === 'adult')
+                .map((passenger) => ({ penumpang: passenger.fullname }));
+    
+              const penumpangAnak = passengers
+                .filter((passenger) => passenger.person === 'child')
+                .map((passenger) => ({ penumpang: passenger.fullname }));
+    
+              const adult_price = adult * order.flight.price;
+              const child_price = child * order.flight.price;
+              const tax = Math.floor(0.1 * order.flight.price);
+              const total_price =
+                order.total_passengers * order.flight.price + tax;
+    
+              return {
                 id: order.id,
                 booking_code: order.booking_code,
                 booking_status: order.status,
                 flight_class: order.flight.class,
                 flight_duration: order.flight.flight_duration,
                 info_departure_airport: {
-                    departure_time: order.flight.departure_time,
-                    date: order.flight.flight_date,
-                    departure_airport: order.flight.from.name
+                  departure_time: order.flight.departure_time,
+                  date: order.flight.flight_date,
+                  departure_airport: order.flight.from.name
                 },
                 info_flight: {
-                    airline_name: order.flight.airline.name,
-                    class: order.flight.class,
-                    airplane_code : order.flight.airplane.airplane_code,
-                    logo: order.flight.airline.logo,
-                    ...mergedPenumpang
+                  airline_name: order.flight.airline.name,
+                  class: order.flight.class,
+                  airplane_code: order.flight.airplane.airplane_code,
+                  logo: order.flight.airline.logo
                 },
+                penumpangDewasa,
+                penumpangAnak,
                 info_arrival_airport: {
-                    arrival_time: order.flight.arrival_time,
-                    date: order.flight.flight_date,
-                    arrival_airport: order.flight.to.name
+                  arrival_time: order.flight.arrival_time,
+                  date: order.flight.flight_date,
+                  arrival_airport: order.flight.to.name
                 },
                 info_price: {
-                    adult_total: adult,
-                    child_total: child,
-                    adult_price,
-                    child_price,
-                    tax,
-                    total_price
+                  adult_total: adult,
+                  child_total: child,
+                  adult_price,
+                  child_price,
+                  tax,
+                  total_price
                 }
-            }
-            }));
-
-            return res.status(200).json({
-                status: true,
-                message: "succes get all order",
-                data : result
+              };
             })
+          );
+    
+          return res.status(200).json({
+            status: true,
+            message: "Success get all order",
+            data: result
+          });
         } catch (error) {
-            next(error)
+          next(error);
         }
-    },
+      },
 
     create: async (req,res,next) => {
         try {
             const {flight_id, data_passengers, passengers} = req.body;
-            const {adult, child=0} = passengers
+            const {adult=0, child=0} = passengers
             const total_passengers = adult + child;
 
             if(!flight_id || !data_passengers || !passengers){

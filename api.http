@@ -1,10 +1,13 @@
 ### post register
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "maulanaferdie1@gmail.com",
-    "password": "123"
+    "name": "fer",
+    "email": "sa@gmail",
+    "password": "123",
+    "confirmpassword": "123",
+    "phone": "123"
 }
 
 ### activation

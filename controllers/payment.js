@@ -93,5 +93,103 @@ module.exports = {
         } catch (error) {
             next(error)
         }
-    }
+    },
+
+    invoice: async (req, res, next) => {
+        try {
+          const { order_id, payment_id } = req.body;
+      
+          if (!order_id && !payment_id) {
+            return res.status(400).json({
+              status: false,
+              message: "Invalid to access invoice data",
+            });
+          }
+      
+          const orders = await prisma.order.findFirst({
+            where: {
+              AND: [{ id: order_id }, { user_id: req.user.id }],
+            },
+            include: {
+              flight: {
+                select: {
+                  price: true,
+                },
+              },
+            },
+          });
+      
+          if (!orders) {
+            return res.status(400).json({
+              status: false,
+              message: "Invalid to access invoice order",
+            });
+          }
+      
+          const payment = await prisma.payment_type.findUnique({
+            where: { id: payment_id },
+          });
+      
+          if (!payment) {
+            return res.status(400).json({
+              status: false,
+              message: "Invalid to access invoice payment",
+            });
+          }
+      
+          const passengers = await prisma.passenger.findMany({
+            where: { order_id: orders.id },
+            select: { person: true, fullname: true },
+          });
+      
+          let adult = 0;
+          let child = 0;
+          const penumpang = passengers.map((passenger) => {
+            const passengerName =
+              passenger.person === "adult" ? passenger.fullname : passenger.fullname;
+      
+            if (passenger.person === "adult") {
+              adult++;
+              return {
+                [`penumpang_dewasa_${adult}`]: passengerName,
+              };
+            } else {
+              child++;
+              return {
+                [`penumpang_anak_${child}`]: passengerName,
+              };
+            }
+          });
+      
+          const mergedPenumpang = Object.assign({}, ...penumpang);
+          const adult_price = adult * orders.flight.price;
+          const child_price = child * orders.flight.price;
+          const tax = Math.floor(0.1 * orders.flight.price);
+          const total_price =
+            orders.total_passengers * orders.flight.price + tax;
+      
+          const result = {
+            booking_code: orders.booking_code,
+            payment: payment.name,
+            info_person: mergedPenumpang,
+            info_price: {
+              adult_total: adult,
+              child_total: child,
+              adult_price,
+              child_price,
+              tax,
+              total_price,
+            },
+          };
+      
+          return res.status(200).json({
+            status: true,
+            message: "Success get invoice",
+            data: result,
+          });
+        } catch (error) {
+          next(error);
+        }
+      }
+      
 }
