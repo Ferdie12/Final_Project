@@ -1,4 +1,5 @@
 const prisma = require('../prisma/config');
+const validate = require('../utils/validation');
 const crypto = require('crypto');
 
 module.exports = {
@@ -104,6 +105,16 @@ module.exports = {
                     status: false,
                     message: "input data not valid"
                 })
+            }
+
+            const error = validate.schemaPassenger(req.body);
+            console.log(error)
+
+            if(error){
+              return res.status(400).json({
+                  status: false,
+                  message: error.details[0].message
+              })
             }
 
             if(data_passengers.length != total_passengers){

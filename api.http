@@ -1,13 +1,13 @@
 ### post register
-POST quictix-develop.up.railway.app/auth/login
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
     "name": "ferdie",
-    "email": "maulanaferdie2@gmail.com",
+    "email": "maulanaferdie1@gmail.com",
     "password": "123",
     "confirmpassword": "123",
-    "phone":"0822"
+    "phone":"0822123456123456"
 }
 
 ### activation
@@ -36,11 +36,11 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4MDQxODk2LCJleHAiOjE2ODgxMjgyOTZ9.NeS4jQiy4hLbVbgTTM6okVZ0mplXgwtqOhRdLWCi4k0
 
 ###
-get https://quictix-develop.up.railway.app/data/flight
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4NjE4NTU1LCJleHAiOjE2ODg3MDQ5NTV9.92nZLurm7nId9_5l1ubaFA1RKrgkF_HZrg0fYPxR2rA
+post http://localhost:3000/payment/invoice
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4NjMxODAwLCJleHAiOjE2ODg3MTgyMDB9.Zc8TIVY2ZyV9fpnwWxeSIvyN9BBhj7M1k3MJz2mnpDs
 Content-Type: application/json
 
 {
-    "order_id": 5,
-    "payment_id": 1
+    "order_id":1,
+    "payment_id":2
 }
