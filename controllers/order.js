@@ -36,11 +36,17 @@ module.exports = {
               let child = 0;
               const penumpangDewasa = passengers
                 .filter((passenger) => passenger.person === 'adult')
-                .map((passenger) => ({ penumpang: passenger.fullname }));
+                .map((passenger) => {
+                  adult++
+                  return { penumpang: passenger.fullname }
+                });
     
               const penumpangAnak = passengers
                 .filter((passenger) => passenger.person === 'child')
-                .map((passenger) => ({ penumpang: passenger.fullname }));
+                .map((passenger) => {
+                  child++
+                  return { penumpang: passenger.fullname }
+                });
     
               const adult_price = adult * order.flight.price;
               const child_price = child * order.flight.price;
