@@ -3,6 +3,7 @@ const nodemailer = require('../utils/nodemailer');
 const bcryp = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET_KEY} = process.env;
+const validate = require('../utils/validation');
 // const oauth2 = require('../utils/oauth');
 const imagekit = require('../utils/imagekit');
 const notification = require('../utils/notif');
@@ -17,6 +18,18 @@ module.exports = {
                 return res.status(400).json({
                     status:false,
                     message: "you must input all value"
+                })
+            }
+
+            console.log(name)
+
+            const error = validate.schemaRegister(req.body);
+            console.log(error)
+
+            if(error){
+                return res.status(400).json({
+                    status: false,
+                    message: error.details[0].message
                 })
             }
 
@@ -154,13 +167,8 @@ module.exports = {
             const { name, email } = response.data;
 
         let user = await prisma.user.findUnique({where: {email: email}});
-        if(user){
-            return res.status(400).json({
-                status: false,
-                message: 'email already registered'
-            });
-        }else if (!user) {
-            user = await prisma.user.create({
+        if(!user){
+            await prisma.user.create({
                 data: {
                     name,
                     email,
@@ -168,8 +176,7 @@ module.exports = {
                     role: "buyer",
                     activation: true,
                     otp: 123456
-                }
-            });
+                }})
         }
 
         const payload = {
