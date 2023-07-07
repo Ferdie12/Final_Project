@@ -1,5 +1,7 @@
 const prisma = require("../prisma/config");
 const notification = require('../utils/notif');
+const nodemailer = require('../utils/nodemailer');
+const format = require('../utils/format');
 
 module.exports = {
     checkout: async (req,res,next) => {
@@ -62,12 +64,14 @@ module.exports = {
             });
 
             const notifData = {
-				title: "Succes Payment",
-				description: `you order ticket from ${check.flight.from.name} to ${check.flight.to.name}, total price ${check.total_price}`,
-				user_id: req.user.id
-			};
+				      title: `Succes Payment with Booking Code ${check.booking_code}`,
+				      description: `you order ticket from ${check.flight.from.name} to ${check.flight.to.name}, total price ${format.currency(check.total_price)}`,
+				      user_id: req.user.id
+			      };
 
-			notification.sendNotif(notifData);
+			      notification.sendNotif(notifData);
+            const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: req.user.name, subject: notifData.title, description: notifData.description}});
+                nodemailer.sendMail(user.email, 'Activation Account', html);
 
             return res.status(200).json({
                 status:true,
