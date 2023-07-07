@@ -331,7 +331,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'we will send a email if the email is registered!'
+                message: 'we will send a email check your email to change your password!'
             });
         } catch (error) {
             throw error
