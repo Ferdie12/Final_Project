@@ -184,7 +184,7 @@ module.exports = {
                 const notifData = {
                     title: "Welcome To Quicktix",
                     description: `your account succes registered in quicktix`,
-                    user_id: updated.id
+                    user_id: user.id
                 };
     
                 notification.sendNotif(notifData);
