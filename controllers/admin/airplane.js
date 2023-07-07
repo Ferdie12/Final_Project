@@ -4,9 +4,9 @@ module.exports = {
     getAll : async (req,res,next) => {
         try {
             const airplanes = await prisma.airplane.findMany({
-                orderBy: {
-                  id: 'asc'
-                },
+                orderBy: [
+                  {id: 'asc'}
+                ],
               });
     
             return res.status(200).json({

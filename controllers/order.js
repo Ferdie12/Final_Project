@@ -22,7 +22,10 @@ module.exports = {
                   to: true
                 }
               }
-            }
+            },
+            orderBy: [
+              {id: 'desc'}
+            ]
           });
     
           const result = await Promise.all(

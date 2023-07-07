@@ -39,8 +39,8 @@ module.exports = {
             flight_id: Joi.number().integer().required(),
             data_passengers: Joi.array().items(passengerSchema).min(1).required(),
             passengers: Joi.object({
-                adult: Joi.number().integer().min(1).required(),
-                child: Joi.number().integer().min(0)
+                adult: Joi.number().integer(),
+                child: Joi.number().integer()
             }).required()
         });
 
