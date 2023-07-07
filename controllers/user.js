@@ -179,6 +179,19 @@ module.exports = {
                 }})
         }
 
+        const checkNotif = await prisma.notification.findFirst({where: {user_id: user.id}});
+            if(!checkNotif){
+                const notifData = {
+                    title: "Welcome To Quicktix",
+                    description: `your account succes registered in quicktix`,
+                    user_id: updated.id
+                };
+    
+                notification.sendNotif(notifData);
+                const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: user.name, subject: notifData.title, description: notifData.description}});
+                nodemailer.sendMail(user.email, 'Activation Account', html);
+            }
+
         const payload = {
             id: user.id,
             name: user.name,
