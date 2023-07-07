@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quicktix - Password Reset</title>
+  <title>Quicktix - Notifikasi</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -31,6 +31,15 @@
       margin-bottom: 30px;
     }
     
+    .otp {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 18px;
+      text-align: center;
+      color: #333333;
+    }
+    
     .button {
       display: inline-block;
       background-color: #007bff;
@@ -44,17 +53,11 @@
 </head>
 <body>
   <div class="container">
-    <h2>Quicktix - Password Reset</h2>
-    <p>
-      Hi <%= name %>,<br>
-      You have requested to reset your password on Quicktix. Click the button below to proceed with the password reset process.
-    </p>
-    <div style="text-align: center;">
-      <a href="<%= url %>" class="button">Reset Password</a>
-    </div>
-    <p>
-      If you didn't request a password reset, please ignore this email. Your account is still secure.
-    </p>
+    <h2>Hello <%= user.name %>,</h2>
+    <p><%= user.subject %></p>
+    <p><%= user.description %></p>
+    <p>If you have any questions, please feel free to contact us.</p>
+    <p>Thank you for choosing Quicktix!</p>
     <p>
       Regards,<br>
       The Quicktix Team

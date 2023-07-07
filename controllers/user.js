@@ -179,6 +179,19 @@ module.exports = {
                 }})
         }
 
+        const checkNotif = await prisma.notification.findFirst({where: {user_id: user.id}});
+            if(!checkNotif){
+                const notifData = {
+                    title: "Welcome To Quicktix",
+                    description: `your account succes registered in quicktix`,
+                    user_id: user.id
+                };
+    
+                notification.sendNotif(notifData);
+                const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: user.name, subject: notifData.title, description: notifData.description}});
+                nodemailer.sendMail(user.email, 'Activation Account', html);
+            }
+
         const payload = {
             id: user.id,
             name: user.name,
@@ -240,6 +253,8 @@ module.exports = {
                 };
     
                 notification.sendNotif(notifData);
+                const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: updated.name, subject: notifData.title, description: notifData.description}});
+                nodemailer.sendMail(updated.email, 'Activation Account', html);
             }
 
             return res.status(200).json({
@@ -316,7 +331,7 @@ module.exports = {
 
             return res.status(200).json({
                 status: true,
-                message: 'we will send a email if the email is registered!'
+                message: 'we will send a email check your email to change your password!'
             });
         } catch (error) {
             throw error

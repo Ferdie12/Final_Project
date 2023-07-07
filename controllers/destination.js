@@ -30,6 +30,7 @@ module.exports = {
                     date: order.flight_date,
                     seat_type: order.class,
                     adult: 1,
+                    child: 0
                 },
                 };
             });
