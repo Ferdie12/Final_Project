@@ -254,7 +254,7 @@ module.exports = {
     
                 notification.sendNotif(notifData);
                 const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: updated.name, subject: notifData.title, description: notifData.description}});
-                nodemailer.sendMail(user.email, 'Activation Account', html);
+                nodemailer.sendMail(updated.email, 'Activation Account', html);
             }
 
             return res.status(200).json({
