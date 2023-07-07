@@ -142,26 +142,23 @@ module.exports = {
             select: { person: true, fullname: true },
           });
       
-          let adult = 0;
-          let child = 0;
-          const penumpang = passengers.map((passenger) => {
-            const passengerName =
-              passenger.person === "adult" ? passenger.fullname : passenger.fullname;
+              let adult = 0;
+              let child = 0;
+              const penumpangDewasa = passengers
+                .filter((passenger) => passenger.person === 'adult')
+                .map((passenger) => {
+                  adult++
+                  return { penumpang: passenger.fullname }
+                });
+    
+              const penumpangAnak = passengers
+                .filter((passenger) => passenger.person === 'child')
+                .map((passenger) => {
+                  child++
+                  return { penumpang: passenger.fullname }
+                });
       
-            if (passenger.person === "adult") {
-              adult++;
-              return {
-                [`penumpang_dewasa_${adult}`]: passengerName,
-              };
-            } else {
-              child++;
-              return {
-                [`penumpang_anak_${child}`]: passengerName,
-              };
-            }
-          });
-      
-          const mergedPenumpang = Object.assign({}, ...penumpang);
+       
           const adult_price = adult * orders.flight.price;
           const child_price = child * orders.flight.price;
           const tax = Math.floor(0.1 * orders.flight.price);
@@ -171,7 +168,8 @@ module.exports = {
           const result = {
             booking_code: orders.booking_code,
             payment: payment.name,
-            info_person: mergedPenumpang,
+            penumpangDewasa,
+            penumpangAnak,
             info_price: {
               adult_total: adult,
               child_total: child,

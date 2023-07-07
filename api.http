@@ -1,13 +1,13 @@
 ### post register
-POST http://localhost:3000/auth/register
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "name": "fer",
-    "email": "sa@gmail",
+    "name": "ferdie",
+    "email": "maulanaferdie1@gmail.com",
     "password": "123",
     "confirmpassword": "123",
-    "phone": "123"
+    "phone":"0822123456123456"
 }
 
 ### activation
@@ -36,5 +36,11 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4MDQxODk2LCJleHAiOjE2ODgxMjgyOTZ9.NeS4jQiy4hLbVbgTTM6okVZ0mplXgwtqOhRdLWCi4k0
 
 ###
-GET http://localhost:3000/admin/data/flight
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg3OTU5NzkzfQ.RRpAPWhZsBQEuyR2XPWYOxciiLjYPFC1DDo2Al7UjIw
+get http://localhost:3000/order
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImZlcmRpZSIsImVtYWlsIjoibWF1bGFuYWZlcmRpZTFAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4NjY5OTI5LCJleHAiOjE2ODg3NTYzMjl9.e8l0Yfas680ZxQ0Kl0FWmUGpWZZuTm7_oQf2s2XprWQ
+Content-Type: application/json
+
+{
+    "order_id":1,
+    "payment_id":2
+}

@@ -1,4 +1,5 @@
 const prisma = require('../prisma/config');
+const validate = require('../utils/validation');
 const crypto = require('crypto');
 
 module.exports = {
@@ -21,7 +22,10 @@ module.exports = {
                   to: true
                 }
               }
-            }
+            },
+            orderBy: [
+              {id: 'desc'}
+            ]
           });
     
           const result = await Promise.all(
@@ -35,11 +39,17 @@ module.exports = {
               let child = 0;
               const penumpangDewasa = passengers
                 .filter((passenger) => passenger.person === 'adult')
-                .map((passenger) => ({ penumpang: passenger.fullname }));
+                .map((passenger) => {
+                  adult++
+                  return { penumpang: passenger.fullname }
+                });
     
               const penumpangAnak = passengers
                 .filter((passenger) => passenger.person === 'child')
-                .map((passenger) => ({ penumpang: passenger.fullname }));
+                .map((passenger) => {
+                  child++
+                  return { penumpang: passenger.fullname }
+                });
     
               const adult_price = adult * order.flight.price;
               const child_price = child * order.flight.price;
@@ -104,6 +114,16 @@ module.exports = {
                     status: false,
                     message: "input data not valid"
                 })
+            }
+
+            const error = validate.schemaPassenger(req.body);
+            console.log(error)
+
+            if(error){
+              return res.status(400).json({
+                  status: false,
+                  message: error.details[0].message
+              })
             }
 
             if(data_passengers.length != total_passengers){

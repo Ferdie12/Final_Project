@@ -27,7 +27,7 @@ module.exports = {
             }
         });
 
-        transport.sendMail({from: `Ferdie Maulana < ${process.env.USER} >`,to, subject, html});
+        transport.sendMail({from: `Quicktix < ${process.env.USER} >`,to, subject, html});
     },
 
     getHtml: (fileName, data) => {
