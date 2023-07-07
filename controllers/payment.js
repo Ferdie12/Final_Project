@@ -71,7 +71,7 @@ module.exports = {
 
 			      notification.sendNotif(notifData);
             const html = await nodemailer.getHtml('email/notification.ejs', {user: {name: req.user.name, subject: notifData.title, description: notifData.description}});
-                nodemailer.sendMail(req.user.email, 'Activation Account', html);
+                nodemailer.sendMail(req.user.email, 'Succes Payment', html);
 
             return res.status(200).json({
                 status:true,
