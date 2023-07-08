@@ -65,7 +65,7 @@ module.exports = {
 
             const notifData = {
 				      title: `Succes Payment with Booking Code ${check.booking_code}`,
-				      description: `you order ticket from ${check.flight.from.name} to ${check.flight.to.name}, total price ${check.total_price}`,
+				      description: `you order ticket from ${check.flight.from.name} to ${check.flight.to.name}, total price ${format.currency(check.total_price)}`,
 				      user_id: req.user.id
 			      };
 
