@@ -1,9 +1,9 @@
-const prisma = require("../config");
-const data_payment = require('./data/payment_type.json');
+import prisma from "../../src/application/database.js";
+import data_payment from './data/payment_type.json' assert { type: 'json' };;
 
 async function main() {
     const data = await prisma.payment_type.createMany({data: data_payment});
     console.log(data);
 }
 
-module.exports = main;
+export default main;

@@ -1,7 +1,7 @@
-const data_airline = require('./airline');
-const data_airplane = require('./airplane');
-const data_airport = require('./airport');
-const data_payment = require('./payment');
+import data_airline from './airline.js';
+import data_airplane from './airplane.js';
+import data_airport from './airport.js';
+import data_payment from './payment.js';
 
 function insertData(){
     data_airline();
@@ -10,4 +10,4 @@ function insertData(){
     data_payment();
 }
 
-module.exports = {insertData};
+export default insertData;
