@@ -1,9 +1,9 @@
-const prisma = require("../config");
-const data_airport = require('./data/airport.json');
+import prisma from "../../src/application/database.js";
+import data_airport from './data/airport.json' assert { type: 'json' };;
 
 async function main() {
     const data = await prisma.airport.createMany({data: data_airport});
     console.log(data);
 }
 
-module.exports = main;
+export default main;

@@ -1,6 +1,6 @@
-const prisma = require("../config");
-const data_flight = require('./data/flight.json');
-const middleware = require('../../middleware/auth');
+import prisma from "../../src/application/database.js";
+import data_flight from './data/flight.json' assert { type: 'json' };;
+import middleware from '../../src/middleware/auth.js';
 
 async function createFlightsBatch(dataBatch) {
   await prisma.flight.createMany({ data: dataBatch });
@@ -24,7 +24,7 @@ async function main() {
   console.log('Data creation completed');
 }
 
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.get('/data/flight', middleware.auth, middleware.adminOnly,async (req, res) => {
@@ -35,4 +35,4 @@ router.get('/data/flight', middleware.auth, middleware.adminOnly,async (req, res
   });
 });
 
-module.exports = router;
+export default router;
